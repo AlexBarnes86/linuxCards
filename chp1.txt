@@ -1,0 +1,75 @@
+A ____ is a program that accepts and interprets text-mode commands  Shell / Command Line Interface
+Linux borrows heavily from which operating system (developed at AT&amp;T Bell Labs) Unix
+In memory placeholder for data affecting programs in the current shell  Environment Variable
+The most common command line shell  bash (GNU Bourne Again Shell)
+The original Bourne Shell   bsh (often symlinked to bash)
+Successor to the C shell    tcsh
+This shell has C like symantics csh
+This shell was designed to extend upon the features found in the Bourne and C shells    ksh
+This shell is one of the newest and builds upon many of the other popular (and older) shells    zsh (the Z Shell)
+Name some GUI Terminal Emulators    xterm, konsole, gnome-terminal
+Change the working directory. Bash internal (builtin) or external?  cd; internal
+Display the working directory.&nbsp;Bash internal (builtin) or external?    pwd; internal
+Display a line of text.&nbsp;Bash internal (builtin) or external?   echo; internal
+Execute a program.&nbsp;Bash internal (builtin) or external?    exec; Internal
+What happens to the shell when you exec <i>command&nbsp;</i>versus simply running <i>command</i>    The shell is replaced with the exec'd process.
+The time command returns what three pieces of data? Is time a bash internal (builtin) or external?  Total execution time (wall clock time), user CPU time, system CPU time; Internal
+This built in command changes bash environment options. set
+This command will terminate any shell   exit
+How does logout differ from exit    logout can only terminate login-shells
+How is pwd different from /bin/pwd  pwd is internal to bash, /bin/pwd is external. Their outputs may not match. Several built in commands have similar external commands
+This environment variable is looked up for every external command to bash. Which match is used (first or last)? PATH; first
+True or False: The root account should always have the current directory on its path.   False, this is a very bad idea for security reasons.
+What does typing part of a command and pressing tab in bash do? Command Line Completion - searches the PATH for a match starting with the provided characters.
+Command history in bash is stored where? How is it accessed?&nbsp;Bash internal (builtin) or external?  ~/.bash_history; up arrow key / history command; Internal
+Environment variable defining the default text editing program  EDITOR
+____ is loaded on every bash session. ____ is loaded only on login sessions.    ~/.bashrc; ~/.bash_profile (and ~/.profile, /etc/profile)
+What is the use of the export keyword in bash?  Expose an environment variable to processes outside of a script or resource file
+How can we view the current bash environment?   env, echo $VARIABLE
+This command displays text-based help and is categorized by section numbers.    man
+Manual Section 1    Executable programs and shell commands
+Manual Section 2    System Calls
+Manual Section 3    Library calls
+Manual Section 4    Device files
+Manual Section 5    File formats
+Manual Section 6    Games
+Manual Section 7    Miscellaneous
+Manual Section 8    System Administration
+Manual Section 9    Kernel Routines
+How does info differ from man?  info provides hyperlinked help rather than sections
+input to a process from the command line comes from which stream?   standard input
+during normal operation, output from a process on the command line usually comes from which stream? standard output
+Erroneous output for a process typically uses which stream? standard error
+In the Linux philosophy, most oftenly, things are treated as ____   files
+Redirection operator ____ overwrites a file with standard output    &gt;
+Redirection operator ____ appends output to a file. Does the file have to exist?    &gt;&gt;; no a new one will be created if necessary
+Redirection operator ____ creates or overwrites a file with standard error. 2&gt;
+What does redirection operator 2&gt;&gt; do?    appends standard error from the process to a file or creates a new one if necessary
+What does redirection operator &amp;&gt; do?    Overwrites or creates a new file with both standard output and standard error from a process.
+Redirection operator ____ sends the content of a file to standard input.    &lt;
+What does redirection operator &lt;&lt; do? Reads following lines from the keyboard for standard input.
+Is this a redirection operator &lt;&gt; ?   Yes, use the file for both in and out streams
+Is this a redirection operator &lt;=&gt;    No
+What does the tee command do?&nbsp;Bash internal (builtin) or external? Can be used to capture output from one process to any number of files while still displaying to standard output; External
+This bash operator sends output from one process to the input of another.   The pipe operator |
+What is the command xargs used for?&nbsp;Bash internal (builtin) or external?   Repeatedly runs a command for every word passed to it on standard input. External
+xargs [options] [command [initial-arguments]]   command: the command you wish to repeatedly run<div>initial-arguments: List of constant arguments to use with your command</div><div>options: options to control xargs (not command)</div>
+cat [OPTION]... [FILE]...   concatenate (add) files together
+What is the -E options for cat used for Show line endings with a dollar sign, --show-ends achieves the same result
+What are the -n and -b options with cat used for?   Display line numbers, --number<div>Display non-blank line numbers, --number-nonblank</div>
+cat -s is used for what?    Squeeze contiguous blank lines to a single blank line, --squeeze-blank
+How would I show tabs and control characters with the cat command?  -T, --show-tabs; -v, --show-nonprinting
+What does the tac command do?   Concatenate files, displaying each file in reverse line order.
+What does the join command do?  Joins files on a common field. By default, fields are delimited by spaces and the first field is used.
+If i wanted to join two files by matching the 4th field of the first file and the 2nd field of a second file what would be the command? join -1 4 -2 2 first second
+What does the paste command do? Merge two files line by line.
+What does the paste command use as a default seperator? What can we use to override this delimiter? a tab character; -d, --delimiters
+Which command would I use to convert tabs to spaces? Spaces to tabs? What is the default tabstop?   expand; unexpand; 8 spaces = 1 tab (overrideable with -t or --tabs=num)
+What does the od command do; Are there also odd and even commands?  Octal Dump of a file (useful for binary files); No
+What are the following options with the sort command used for? -f, -M, -n, -r, -k   -f, --ignore-case<div>-M, --month-sort: sort by 3 letter month abreviations</div><div>-n, --numeric-sort</div><div>-r, --reverse</div><div>-k, --key=field: specify a field (or multiple fields comma delimited) to sort on</div>
+What do the following options for the split command do? -b, -C, -l  -b size, --bytes=size<div>-C size, --line-bytes=size: preserve lines</div><div>-l lines, --lines=lines: split by number of lines</div>
+What happens to all the 'C' characters in the file with this command: cat file | tr ABC ab  They are turned into 'b' characters
+Is tr a bash internal (builtin) or external?    External
+What do the following options do with the tr command? -t, -d    -t, --truncate-set1: tr accepts two sets of characters, truncate the first set to the length of the second set<div>-d: delete characters listed in the first set (second set need not be specified)</div>
+In general, you should first run ____ on a file before running the uniq command. Why?   sort; uniq will only remove duplicate lines if they are adjacent.
+
