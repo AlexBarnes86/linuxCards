@@ -11,7 +11,7 @@ Name some GUI Terminal Emulators    xterm, konsole, gnome-terminal
 Change the working directory. Bash internal (builtin) or external?  cd; internal
 Display the working directory.&nbsp;Bash internal (builtin) or external?    pwd; internal
 Display a line of text.&nbsp;Bash internal (builtin) or external?   echo; internal
-Execute a program.&nbsp;Bash internal (builtin) or external?    exec; Internal
+Replace the current process and execute a program.&nbsp;Bash internal (builtin) or external?    exec; Internal
 What happens to the shell when you exec <i>command&nbsp;</i>versus simply running <i>command</i>    The shell is replaced with the exec'd process.
 The time command returns what three pieces of data? Is time a bash internal (builtin) or external?  Total execution time (wall clock time), user CPU time, system CPU time; Internal
 This built in command changes bash environment options. set
@@ -19,12 +19,12 @@ This command will terminate any shell   exit
 How does logout differ from exit    logout can only terminate login-shells
 How is pwd different from /bin/pwd  pwd is internal to bash, /bin/pwd is external. Their outputs may not match. Several built in commands have similar external commands
 This environment variable is looked up for every external command to bash. Which match is used (first or last)? PATH; first
-True or False: The root account should always have the current directory on its path.   False, this is a very bad idea for security reasons.
+T/F: The root account should always have the current directory on its path. False, this is a very bad idea for security reasons.
 What does typing part of a command and pressing tab in bash do? Command Line Completion - searches the PATH for a match starting with the provided characters.
 Command history in bash is stored where? How is it accessed?&nbsp;Bash internal (builtin) or external?  ~/.bash_history; up arrow key / history command; Internal
 Environment variable defining the default text editing program  EDITOR
 ____ is loaded on every bash session. ____ is loaded only on login sessions.    ~/.bashrc; ~/.bash_profile (and ~/.profile, /etc/profile)
-What is the use of the export keyword in bash?  Expose an environment variable to processes outside of a script or resource file
+What is the use of the <b>export</b> keyword in bash?   Expose an environment variable to processes outside of a script or resource file
 How can we view the current bash environment?   env, echo $VARIABLE
 This command displays text-based help and is categorized by section numbers.    man
 Manual Section 1    Executable programs and shell commands
@@ -37,8 +37,8 @@ Manual Section 7    Miscellaneous
 Manual Section 8    System Administration
 Manual Section 9    Kernel Routines
 How does info differ from man?  info provides hyperlinked help rather than sections
-input to a process from the command line comes from which stream?   standard input
-during normal operation, output from a process on the command line usually comes from which stream? standard output
+Input to a process from the command line comes from which stream?   standard input
+During normal operation, output from a process on the command line usually comes from which stream? standard output
 Erroneous output for a process typically uses which stream? standard error
 In the Linux philosophy, most oftenly, things are treated as ____   files
 Redirection operator ____ overwrites a file with standard output    &gt;
@@ -48,28 +48,117 @@ What does redirection operator 2&gt;&gt; do?    appends standard error from the 
 What does redirection operator &amp;&gt; do?    Overwrites or creates a new file with both standard output and standard error from a process.
 Redirection operator ____ sends the content of a file to standard input.    &lt;
 What does redirection operator &lt;&lt; do? Reads following lines from the keyboard for standard input.
-Is this a redirection operator &lt;&gt; ?   Yes, use the file for both in and out streams
+Is this a redirection operator &lt;&gt; Yes, use the file for both in and out streams
 Is this a redirection operator &lt;=&gt;    No
-What does the tee command do?&nbsp;Bash internal (builtin) or external? Can be used to capture output from one process to any number of files while still displaying to standard output; External
+What does the <b>tee</b> command do?&nbsp;Bash internal (builtin) or external?  Can be used to capture output from one process to any number of files while still displaying to standard output; External
 This bash operator sends output from one process to the input of another.   The pipe operator |
-What is the command xargs used for?&nbsp;Bash internal (builtin) or external?   Repeatedly runs a command for every word passed to it on standard input. External
+What is the command <b>xargs</b> used for?&nbsp;Bash internal (builtin) or external?    Repeatedly runs a command for every word passed to it on standard input. External
 xargs [options] [command [initial-arguments]]   command: the command you wish to repeatedly run<div>initial-arguments: List of constant arguments to use with your command</div><div>options: options to control xargs (not command)</div>
 cat [OPTION]... [FILE]...   concatenate (add) files together
-What is the -E options for cat used for Show line endings with a dollar sign, --show-ends achieves the same result
+cat -E  Show line endings with a dollar sign, --show-ends achieves the same result
 What are the -n and -b options with cat used for?   Display line numbers, --number<div>Display non-blank line numbers, --number-nonblank</div>
-cat -s is used for what?    Squeeze contiguous blank lines to a single blank line, --squeeze-blank
+cat -s  Squeeze contiguous blank lines to a single blank line, --squeeze-blank
 How would I show tabs and control characters with the cat command?  -T, --show-tabs; -v, --show-nonprinting
-What does the tac command do?   Concatenate files, displaying each file in reverse line order.
-What does the join command do?  Joins files on a common field. By default, fields are delimited by spaces and the first field is used.
-If i wanted to join two files by matching the 4th field of the first file and the 2nd field of a second file what would be the command? join -1 4 -2 2 first second
-What does the paste command do? Merge two files line by line.
-What does the paste command use as a default seperator? What can we use to override this delimiter? a tab character; -d, --delimiters
+What does the <b>tac</b> command do?    Concatenate files, displaying each file in reverse line order.
+What does the <b>join</b> command do?   Joins files on a common field. By default, fields are delimited by spaces and the first field is used.
+If I wanted to join two files by matching the 4th field of the first file and the 2nd field of a second file what would be the command? join -1 4 -2 2 first second
+What does the <b>paste</b> command do?  Merge two files line by line.
+What does the <b>paste</b> command use as a <b>default seperator</b>? What can we use to override this delimiter?   a tab character; -d, --delimiters
 Which command would I use to convert tabs to spaces? Spaces to tabs? What is the default tabstop?   expand; unexpand; 8 spaces = 1 tab (overrideable with -t or --tabs=num)
-What does the od command do; Are there also odd and even commands?  Octal Dump of a file (useful for binary files); No
-What are the following options with the sort command used for? -f, -M, -n, -r, -k   -f, --ignore-case<div>-M, --month-sort: sort by 3 letter month abreviations</div><div>-n, --numeric-sort</div><div>-r, --reverse</div><div>-k, --key=field: specify a field (or multiple fields comma delimited) to sort on</div>
-What do the following options for the split command do? -b, -C, -l  -b size, --bytes=size<div>-C size, --line-bytes=size: preserve lines</div><div>-l lines, --lines=lines: split by number of lines</div>
+What does the <b>od</b> command do; Are there also odd and even commands?   Octal Dump of a file (useful for binary files); No
+sort -f -f, --ignore-case
+split -b    -b size, --bytes=size
 What happens to all the 'C' characters in the file with this command: cat file | tr ABC ab  They are turned into 'b' characters
 Is tr a bash internal (builtin) or external?    External
-What do the following options do with the tr command? -t, -d    -t, --truncate-set1: tr accepts two sets of characters, truncate the first set to the length of the second set<div>-d: delete characters listed in the first set (second set need not be specified)</div>
+tr -t   -t, --truncate-set1: tr accepts two sets of characters, truncate the first set to the length of the second set<div><br /></div>
 In general, you should first run ____ on a file before running the uniq command. Why?   sort; uniq will only remove duplicate lines if they are adjacent.
+tr -d   -d: delete characters listed in the first set (second set need not be specified)
+sort -M -M, --month-sort: sort by 3 letter month abreviations
+sort -n -n, --numeric-sort
+sort -r -r, --reverse
+sort -k -k, --key=field: specify a field (or multiple fields comma delimited) to sort on
+split -C    -C size, --line-bytes=size: preserve lines
+split -l    -l lines, --lines=lines: split by number of lines
+cat -n  -n, --number: adds line numbers to every line
+cat -b  -b, --number-nonblank: display line numbers for all non blank lines
+cat -T  -T, --show-tabs displays tab characters as ^I
+cat -v  -v, --show-nonprinting: display non-printing and control characters with special notations
+expand  Convert tabs to spaces (default 1:8)
+What is a <b>tabstop</b>    ratio of tabs to spaces for display width. e.g. tabstop of 8 means 1 tab = 8 spaces
+expand -t <i>num</i>    -t <i>num</i>, --tabs=<i>num</i>: set tabstop to <i>num</i>
+This command is useful if a file contains lines that are too long for your display terminal fmt
+fmt -w  -w width, -width, --width=width: set the line display width for formatting
+nl is equivalent to which option with cat?  -b (--number-nonblank)
+nl -b <i>style</i>; nl -h <i>style</i>; nl -f <i>style</i>  specify a style for line numbering in the body (-b, --body-numbering=<i>style</i>), header (-h, --header-numbering=<i>style</i>), and/or footer (-f, --footer-numbering=<i>style</i>) sections of output
+nl -d=<i>code</i>   -d=code, --section-delemiter=code: specification for when to start a new page
+nl -p   -p, --no-renumber: do not reset line numbers for new pages
+numbering style for nl  t - only non-blank lines (default)<div>n - omit line numbers entirely (e.g. header, footer)</div><div>pREGEX - number only lines matching REGEX</div><div><br /></div>
+Prepare a file for printing with the ____ command   pr
+The pr command by default assumes character width of ____ and ____ font 80; monospace
+multi-column output with pr -numcols, --columns=numcols
+pr -d   -d, --double-space: double spacing for a single-spaced file
+pr -F; pr -f    -F, -f, --form-feed: print form feed characters (works better for very old printers)
+pr -l   -l, --length=lines: number of lines per page
+pr -h <i>text</i>   -h <i>text</i>, --header=<i>text</i>: page header
+pr -o <i>chars</i>  -o <i>chars</i>, --indent=<i>chars</i>: set left margin spacing equal to number of <i>chars</i>
+Use this command to send output to a print spooler. lpr
+Command to view the top of a file   head
+head -c <i>num</i>  -c <i>num</i>, --bytes=<i>num</i>: display <i>num</i>&nbsp;bytes from a file
+head -n <i>num</i>  -n <i>num, </i>--lines<i>=num:&nbsp;</i>change number of lines to display from the top of the file.
+Display the last several lines of a file    tail
+Default number of lines to display with head and tail   10
+tail -f -f, --follow: keep the file open and display new lines continuously (e.g. log files)
+tail -pid=<i>pid</i>    Similar to -f, but stop when process with id <i>pid</i> terminates
+less is an improvement on the ____ command  more
+The <b>less</b> command is used for?    paginating through output or a file.
+less command - go to line 100   g100
+less command - search backwards ?
+less command - search forwards  /
+less command - quit q
+cut -b list -b <i>list</i>, --bytes=<i>list: </i>cut a list of bytes from a file
+cut -c <i>list</i>  -c&nbsp;<i>list</i>, --characters=<i>list:&nbsp;</i>cut a list of characters from a file
+cut -f <i>list</i>  -f <i>list</i>, --fields=<i>list</i>: cut a list of fields from a file (default seperator is tab)
+cut -d <i>char</i>  -d <i>char</i>, --delim=<i>char</i>, --delimiter=<i>char </i>(default is tab) use when cutting fields
+cut -s  -s, --only-delimited: only echo lines with delimiters
+the list specifier for a cut command as in cut -f <i>list</i>&nbsp;follows what rules?  single number n, open range -n or n-, closed range n-m (ranges are inclusive)
+The word count command<b> wc</b> displays what information by default?  lines, words, and bytes
+wc -l   -l, --lines
+wc -w   -w, --words
+wc -c   -c, --bytes
+wc -m   -m, --chars
+wc -L   -L, --max-line-length
+Simplest regular expression type    constant expression (string)
+Bracket expression x[abc]yz matches x followed by (a, b, or c) followed by yz
+Range expression a[5-8]c matches?   a followed by 5, 6, 7, or 8, followed by c
+Match any character .
+Match beginning of line ^
+Match end of line   $
+Match zero or more of the previous token    *
+Match 1 or more of the previous token   +
+Match zero or one of the previous token ?
+In a regular expression the pipe operator is for    conditionals, e.g. one|two would match one or two
+In regular expressions how would I match an asterisk character? escape it: \*
+T/F: The rules for regular expressions are a universal standard false (unfortunately)
+What does <b>grep</b> stand for?    General Regular Expression Parser
+grep -c -c, --count: count matching lines
+grep -f <i>file</i> -f <i>file</i>, --file=<i>file</i>: read the match pattern from the specified file
+grep -i -i, --ignore-case
+grep -r -r, --recursive: search all files in a directory recursively
+T/F: rgrep is a command True: equivalent to grep -r (recursive)
+T/F: zgrep is a command False
+grep -E -E, --extended-regexp: enable the extended regular expression syntax
+T/F: egrep is a command True, equivalent to grep -E (enable extended regular expression syntax)
+The <b>sed</b> command stands for   Stream Editor
+This command can be used to replace all instances of a regular expression   sed
+sed command =   Display current line number
+sed command a\text  Append text
+sed command i\text  insert text
+sed command r filename  append text from a file
+sed command c\text  replace (change) a range of lines with text
+sed s/regexp/replacement    replace a range of matching text
+sed command w filename  write the current pattern to a file
+sed command q   quite and output the current pattern
+sed command Q   quit and do nothing else
+dos2unix    change line endings from \r\n to \n
+unix2dos    change line endings from \n to \r\n
 
