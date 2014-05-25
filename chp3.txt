@@ -1,0 +1,98 @@
+What does USB stand for?    Universal Serial Bus
+What does CPU stand for?    Central Processing Unit
+What is RAM?    Random Access Memory
+What does BIOS stand for?   Basic Input/Output System
+What does ATA stand for? What is it?    Advanced Technology Atachment; An old hard disk interface standard.
+The first thing BIOS performs on startup.   Power On Self Test (POST)
+EEPROM  Electronically Erasable Programmable Read-Only Memory
+T/F: Linux uses the BIOS for all device drivers False
+Linux fails to boot after removing the keyboard. How can I repair this situation?   Enable keyboardless booting in the BIOS settings.
+IRQ - what does it stand for? What does it do?  Interrupt Request; Signal to interrupt the current process on the CPU to handle an external event.
+IRQ 0   System Timer
+IRQ 1   Keyboard
+IRQ 2   IRQ Cascade (for 8-15)
+IRQ 3   2nd RS-232 Serial Port
+IRQ 4   First RS-232 Serial Port
+IRQ 5   Sound Card or Parallel Port
+IRQ 6   Floppy Disk Controller
+IRQ 7   First Parallel Port
+IRQ 8   Real-time Clock
+IRQ 9   Open Interrupt
+IRQ 10  Open Interrupt
+IRQ 11  Open Interrupt
+IRQ 12  PS/2 Mosue
+IRQ 13  Math Coprocessor
+IRQ 14  Primary ATA Controller
+IRQ 15  Secondary ATA Controller
+ISA - What does it stand for? What is it?   Industry Standard Architecture; Allows devices to communicate with the CPU with the use of Interrupt Requests (IRQs)
+T/F Devices can share an IRQ over ISA bus   False
+T/F Devices can share an IRQ on an PCI bus  True
+T/F Almost all modern computers have both PCI and ISA buses for backwards compatibility False, most systems provide only PCI
+Which virtual file contains a listing of assigned IRQ addresses?    /proc/interrupts
+T/F Linux writes files found in the /proc filetree to disk for crash recovery purposes. False, /proc is a virtual filesystem and exists only in memory.
+T/F: I/O Address is the same thing as I/O Port  True
+What is an I/O Address? Reserved memory segment for system communication with hardware.
+This virtual file contains a listing of all currently used I/O Addresses    /proc/ioports
+DMA - What does it stand for? What is it?   Direct Memory Addressing; A means for devices to communicate with each other without disturbing the CPU
+This virtual file contains a listing of currently used DMA channels /proc/dma
+T/F It is possible to boot from a USB drive True
+CHS - What does it stand for? What is it?   Cylinder/Head/Sector; Old disk geometry standard for addressing a hard disk.
+Maximum disk size addressable by CHS Geometry? With translation support?    504MB; 8GB
+What addressing scheme replaces CHS?    LBA - Logical (aka Linear) Block Addressing
+LBA - What does it stand for? What is it?   Logical (Linear) Block Addressing; Unique number assigned per sector on the disk. Leaves translation to disk location to the firmware.
+T/F Coldplug vs Hotplug refers to whether or not a socket is safe to touch. False
+T/F Hotplug devices are called hot because removing them while in operation is damaging to the system   False; Hotplug devices can be added or removed at any time, coldplug should only be done when the system is off (cold)
+What is the sysfs filesystem?   Virtual, mounted at /sys - contains info about devices for userspace
+T/F When root runs a process that process is running in privileged kernel space False
+HAL (hald)  Hardware Abstraction Layer Daemon - Provides info on hardware to user space programs
+D-Bus   Enables processes to communicate about &nbsp;(and be notified of) hardware events.
+udev - What is it? Where on the filesystem can we configure it? virtual filesystem located at /dev; Configuration found in /etc/udev
+Which of these are hotpluggable? USB, RS-232, Parallel, Ethernet    USB, Ethernet
+In addition to software, older devices can have IRQ and IO Addresses assigned via hardware pins commonly known as ____  jumpers
+T/F Most PCI devices are automatically configured correctly True
+This command allows users to query and adjust low level PCI configuration information.  setpci
+This command lists information on currently installed pci devices   lspci
+lspci -v, -vv, -vvv, -vvvv are used for?    Increasing verbosity of lspci output
+What does lspci -n do? How does it compare to -nn   Displays raw manufacturer numeric codes instead of user friendly names; -nn includes both manufacturer names and codes
+lspci -b is for?    Show data as seen by other devices on the system (IRQ and such)
+lspci -t is for?    Display a tree view of pci devices on the system
+lspci -s does?  Filters pci devices by a given specification [[[[domain]:]bus]:][slot][.[func]]
+lspci -d    Show pci info for a given device [vendor]:[device]
+lspci -i is used for?   specify a given file to use for mapping vendor ids to device names
+lspci -m does? how does it compare to -mm?  dump pci data in machine readable form for scripts; -mm is a newer standard.
+lspci -D    display PCI Domain
+lspci -M    Full bus scan to identify hidden/misconfigured devices. (requires root)
+T/F lspci -v and -version are the same  False -v is to control verbosity level, -version is to display version information and exit.
+Kernel drivers in linux come in the form of kernel ____ modules
+Kernel modules are stored where on the filesystem?  /lib/modules
+Use this command to display currently loaded kernel modules lsmod
+This command displays addition information about a kernel module    modinfo
+Which two programs can be used to load kernel modules?  insmod, modprobe
+How does insmod differ from modprobe?   insmode can only install a single module and fails if missing dependencies. modprobe is recursive
+T/F modprobe requires a full path to the kernel module for installation False; modprobe uses configuration files to retrieve this information
+modprobe -v -v, --verbose
+modprobe -C filename    Change configuration files
+modprobe -n -n, --dry-run
+modprobe -r -r, --remove: unload an installed module
+modprobe -f -f, --force
+Show kernel module dependencies with    modprobe --show-depends
+modprobe -l list all available modules
+T/F: The unmod command unloads a kenel module   False - use rmmod
+rmmod -w    -w, --wait: wait until the module is no longer being used before removing it
+T/F: rmmod can only remove a single module and will fail if there are any dependent modules True
+T/F modprobe can be used to remove modules  True
+T/F: USB 2.0 changed to a new connection standard for maximum performance   False
+T/F: USB 3.0 changed to a new connection standard for maximum performance   True; though it is physically compatible with the old standard just with degraded performance.
+T/F: A Linux system can operate over 100 USB devices concurrently connected to a system.    True
+Which of these are Linux USB controllers: UHCI, SHCI, OHCI, EHCI    All except SHCI
+This tool is used to list usb devices on a system   lsusb
+lsusb -v    verbose
+lsusb -s    Restrict output to the given specification [[bus]:][devnum]
+lsusb -d    limit output to the given [vendor]:[product]
+lsusb -D filename   Display info on a usb device listed in /proc/bus/usb
+lsusb -t    tree view
+lsusb -V    --version
+USB device information is made available where in /proc?    /proc/bus/usb
+These two programs are used in managing usb devices.    usbmgr, hotplug
+T/F: hotplug is newer and preferred over usbmgr True
+T/F: Since USB is hotpluggable I can safely remove an active usb storage device.    False, it should be unmounted first.
