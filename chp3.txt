@@ -96,3 +96,126 @@ USB device information is made available where in /proc?    /proc/bus/usb
 These two programs are used in managing usb devices.    usbmgr, hotplug
 T/F: hotplug is newer and preferred over usbmgr True
 T/F: Since USB is hotpluggable I can safely remove an active usb storage device.    False, it should be unmounted first.
+T/F: Multiple partitions allow for multiple operating systems to be installed   True
+T/F: A disk can only use a single filesystem    False, each partition may use a seperate filesystem
+T/F: Partitioning a disk allows for better disk space management    True
+T/F: Partitioning a disk provides better error protection   True, a corrupted filesystem will only affect the files in that partition
+T/F: A read only partition can only be created by toggling a jumper switch on a hard disk   False, read only mode is a common mount option in linux for any partition without the need for jumpers.
+MBR Master Boot Record
+The MBR partition size is limited to ____ (using the common sector size of 512 bytes)   2TB
+GPT GUID Partition Table
+GUID    Globally Unique Identifier
+MBR Partitioning Scheme allows for up to ____ partitions.   4
+What partition types does MBR offer?    Primary, Extended, Logical
+T/F: Operating systems can only exist on logical partitions False, many only work on primary partitions
+T/F: Logical partitions require extended partitions True, logical partitions exist only within extended partitions
+T/F: Logical partitions are labeled starting from number 5  True
+T/F: Extended partitions are labeled starting from 5    False, extended partitions do not get assigned numbers
+the MBR contains the partition table and ____   Primary Boot Loader (first code to execute from disk)
+sfdisk -d <i>disk</i>   output the MBR for a given disk to stdout
+sfdisk -f disk  Read the MBR from stdin and write it to a given disk
+MBR Type 0x0c   FAT
+MBR Type 0x05   old extended partition
+MBR Type 0x07   NTFS
+MBR Type 0x0f   new extended partition
+MBR Type 0x82   Linux Swap
+MBR Type 0x83   Linux Filesystem
+T/F: GPT partitioned disks use MBR  True, as a protection against accidental modification by tools
+T/F: GPT partitioned disks can be primary, extended, or logical False, GPT got rid of these distinctions
+T/F: GPT Partitions numbers must start from 1   False, GPT partition numbers can start anywhere and have gaps
+T/F: The C:\ drive in Windows is equivalent to / in Linux   False, Linux uses a unified directory tree and can mount any partition anywhere in this tree for any desired reason.
+In order to access a filesystem, first it must be ____ (aka creating a ____ point)  mounted; mount
+A partition type reserved as additional RAM if necessary    swap
+The /home mount point is used for   user data
+The /boot mount point is used for   critical boot files like the system kernel
+The /usr mount point is used for    program data and files
+The /usr/local mount point is used for  program data local to the installation (not provided by the distro)
+The /opt mount point is used for    programs and data from third-party (commercial) packages
+The /var mount point is used for    variable data needed for program operation (e.g. mail server)
+The /tmp mount point is used for    temporary data, commonly gets wiped on each reboot
+The /mnt mount point is used for    mounting other filesystems
+The /media mount point is used for  removable media
+These directories should never be placed on seperate partitions /etc, /bin, /sbin, /lib, and /dev
+fdisk   tool for disk partitioning
+fdisk: display the current partition table  p, or fdisk -l
+fdisk: create a new partition   n
+fdisk: delete a partition   d
+fdisk: change partition type    t
+fdisk: list partition types l
+fdisk: mark partition bootable  a
+fdisk: get help m or ?
+fdisk: exit without saving; with saving q; w
+Formatting a partition is equivalent to creating a _____    filesystem
+ext2fs (aka ext2)   Extended File System (2nd version)
+What is the difference between ext2 and ext3    ext3 adds journaling
+T/F: Journaling completely prevents file system corruption from ever occurring  False, journaling makes for faster file system checks after a crash and less likely to be corrupted.
+What is the most noticeable improvement with ext4 over ext3?    Larger filesystem support
+This filesystem is good with a very large number of tiny files  ReiserFS
+Which of these are not filesystem(s): JFS, LightFS, XFS, BtrFS, ZenFS   LightFS, ZenFS
+FAT File Allocation Table
+Old FAT filenames are limited to ___ characters and a ___ character long extension  8; 3
+The <b><u>old</u></b> FAT filesystem has a typecode of ___  msdos
+The <b><u>new</u></b> FAT filesystem has a typecode of ____ vfat
+NTFS    New Technology File System
+HFS/HFS+    Hierarchical File System (Mac OS)
+To write to a HFS+ filesystem you should first  disable the journal
+ISO-9660 is the filesystem for  CD-ROM disk images
+Rock Ridge Extensions are   extended support for unix style long file names on CD-ROMs (ISO-9660)
+The Joliet filesystem is windows equivalent answer to linux ISO-9660 ___ Extensions Rock Ridge
+UDF Universal Disk Format
+mkfs -t <i>code</i>&nbsp;<i>partition</i>   create a filesystem with type <i>code </i>on a given <i>partition</i>
+mkfs -t <i>code&nbsp;</i>is equivalent to   mkfs.<i>code</i>
+mkfs -c perform a bad block check
+If mkfs -c reports errors   sectors are bad and you may need to replace the disk soon
+To create a filesystem with no reserved storage use mkfs -m <i>percent</i>
+Create a swap partition mkswap
+Enable the swap partition   swapon
+Print information about an ext filesystem   dumpe2fs
+T/F: In order to use dumpe2fs you must first unmount the filesystem False
+Dump information about an xfs filesystem    xfs_info
+Dump xfs metadata   xfs_metadump
+tune2fs -c  change the maximum mount count (before automatically running fsck)
+Change time between automatic fsck  tune2fs -i
+Set the mount count tune2fs -C <i>count</i> (not be confused with -c)
+tune2fs -j  Add a journal to an ext2 filesystem
+xfs equivalent to tune2fs   xfs_admin
+tune2fs -l  Print the filesystem label
+tune2fs -u  Print the filesystem UUID
+This command can be used to obtain the UUID of any filesystem   blkid
+debugfs Advanced program to manipulate an unmounted filesystem
+debugfs: Display superblock information stats or show_super_stats
+debugfs: display inode information  stat <i>filename</i>
+debugfs: undelete a file    undelete <i>inode filename</i>
+debugfs: list deleted inodes    lsdel or list_deleted_inodes
+debugfs: extract file   write <i>internal-file external-file</i>
+debugfs: help   list_requests, lr, help, ?
+debugfs: exit the program   quit
+xfs equivalent to debugfs   xfs_db
+Change the size of a filesystem journal tune2fs -J <i>size&nbsp;</i>or tune2fs size=<i>journal-size</i>
+fsck -A check all filesystems marked in /etc/fstab
+fsck -C display progress of filesystem check
+fsck -V verbose file system check
+fsck -N dry run file system check
+fsck -t instruct the filesystem type for filesystem checking
+fsck -a (equivalent fsck -p)    perform automatic check
+fsck -r perform interactive filesystem check
+fsck -f force filesystem check
+T/F: Run fsck only on unmounted disks   True, can cause corruption on mounted disks
+T/F: use fsck for all filesystems   False, read the distribution's documentation. Sometimes an alternate program is necessary for alternatives to ext filesystems
+df  print summary of disk space used across all partitions
+df -a (df -all) include pseudo filesystems with 0 size like /proc
+df -h   -h, --human-readable: Convert from raw byte displays to rounded KB, MB, GB
+df -i   -i, --inodes: report inode usage statistics
+df -l   -l, --local: omit networked filesystems
+df -T   -T, --print-type: print the types of filesystems in use
+df -t   -t fstype, --type=fstype: include only mounts with matching filesystem types
+du  report disk usage for a given set of directories
+du -a   -a, --all: also report usage of individual files (not just directories)
+du -c   -c, --total: print total usage at end
+du -h   -h, --human-readable
+du -H   -H, --si: display using metric system instead of base 2
+du -l   -l, --count-links: count hard links independently (useful for CD-ROMs)
+Limit du depth with --max-depth=n
+du -s   -s, --summarize: equivalent to --max-depth=0, only report on the directories listed
+du -x   -x, --one-file-system: do not include other filesystems mounted inside of the directories provided
+
