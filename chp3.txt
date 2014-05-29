@@ -218,3 +218,46 @@ du -l	-l, --count-links: count hard links independently (useful for CD-ROMs)
 Limit du depth with	--max-depth=n
 du -s	-s, --summarize: equivalent to --max-depth=0, only report on the directories listed
 du -x	-x, --one-file-system: do not include other filesystems mounted inside of the directories provided
+mount	Associate a filesystem to a directory
+umount	unmount a file system from a directory
+mount -a	Mount all filesystems listed in /etc/fstab
+mount -r	mount read only
+mount -v	mount verbose
+CLI option to allow mount for both read and write operations	mount -w or mount -o rw
+mount -t	Specify the filesystem type to be mounted
+T/F: Linux requires a kernel module to mount filesystems	True
+mount -L	mount by label
+mount -U	mount by UUID
+How can normal users be allowed to mount filesystems?	add user, users, or owner option to /etc/fstab
+How do you add filesystem specific options for mounting	with mount -o <i>options</i>&nbsp;or configuration in /etc/fstab
+mount option: defaults	use default options for the filesystem
+mount option: loop	Use the loop device to mount a file as if it were a block device (e.g. iso image)
+mount option: auto/noauto	automatically mount or not when using -a
+mount option: user/nouser	allow users to mount filesystems, only the user that mounted the filesystem is allowed to unmount it
+mount option: users	Similar to user, allow any user to mount and any user to unmount a filesystem. (Different users allowed)
+mount option: owner	similar to user, only the owner of the device file is allowed to mount or unmount
+mount option: remount	change settings without unmounting the filesystem
+mount option: ro	read only
+mount option: rw	read and write
+mount option: uid=value	set the owner of all files in the filesystem to equal user with the given id (useful for older filesystems and windows based file systems)
+mount option: gid=value	set the group id of all files in the filesystem to group with the given id. (e.g old and windows filesystems)
+mount option: umask=value	set the umask for all file permissions on all files (useful for old and windows filesystems)
+mount option: dmask=value	set the umask for all file permissions on all directories (useful for old and windows filesystems)
+mount option: fmask=value	set the umask for all file permissions on all files (but not directories) (useful for old and windows filesystems)
+mount option: conv=code	automatically convert line endings. code = b, binary - do not modify (default); t, text - convert all; a, auto - convert if recognized as non-binary
+mount option: norock	disable Rock Ridge extensions for cd roms
+mount option: nojoliet	disable Joliet extensions for cd roms
+umount -a	unmount all partitions listed in /etc/mtab (expected to fail on some like root partition)
+umount -f	force unmount
+umount -r	fallback to read only if unmounting fails
+umount -t <i>type</i>	unmount partitions matching filesystem type
+T/F: to unmount a filesystem you must provide the mount point	False, you may instead provide the device
+Use this configuration file to permanently mount a file system	/etc/fstab
+fstab stands for	filesystem table
+/etc/fstab Device column (1)	device filename, label, UUID, network drive, or samba location to mount
+/etc/fstab Mount point (column 2)	Where to mount the filesystem to
+/etc/fstab Filesystem type (column 3)	Filesystem type code, auto may be used
+/etc/fstab Mount options (column 4)	options to use when mounting the filesystem (same as when using mount -o)
+/etc/fstab dump column (column 5)	Enable (1) or disable (0) backups using the dump command (less common in recent days)
+/etc/fstab fsck column (column 6)	fsck priority, 0 means skip, root partition should have 1, all others should be higher.
+T/F: The Reiser filesystem (reiserfs) should have a fsck value of 2 in /etc/fstab	False, reiserfs handles its own file system checks and should be skipped by fsck. Set it to 0.
