@@ -70,15 +70,15 @@ This command displays addition information about a kernel module	modinfo
 Which two programs can be used to load kernel modules?	insmod, modprobe
 How does insmod differ from modprobe?	insmode can only install a single module and fails if missing dependencies. modprobe is recursive
 T/F modprobe requires a full path to the kernel module for installation	False; modprobe uses configuration files to retrieve this information
-modprobe -v	--verbose
+modprobe -v	-v, --verbose
 modprobe -C filename	Change configuration files
-modprobe -n	--dry-run
-modprobe -r	--remove, unload an installed module
-modprobe -f	--force
+modprobe -n	-n, --dry-run
+modprobe -r	-r, --remove: unload an installed module
+modprobe -f	-f, --force
 Show kernel module dependencies with	modprobe --show-depends
 modprobe -l	list all available modules
 T/F: The unmod command unloads a kenel module	False - use rmmod
-rmmod -w	--wait: wait until the module is no longer being used before removing it
+rmmod -w	-w, --wait: wait until the module is no longer being used before removing it
 T/F: rmmod can only remove a single module and will fail if there are any dependent modules	True
 T/F modprobe can be used to remove modules	True
 T/F: USB 2.0 changed to a new connection standard for maximum performance	False
@@ -161,7 +161,7 @@ HFS/HFS+	Hierarchical File System (Mac OS)
 To write to a HFS+ filesystem you should first	disable the journal
 ISO-9660 is the filesystem for	CD-ROM disk images
 Rock Ridge Extensions are	extended support for unix style long file names on CD-ROMs (ISO-9660)
-The Joliet filesystem is windows equivalent answer to linux ISO-9660 ___	Extensions Rock Ridge
+The Joliet filesystem is windows equivalent answer to linux ISO-9660 ___ Extensions	Rock Ridge
 UDF	Universal Disk Format
 mkfs -t <i>code</i>&nbsp;<i>partition</i>	create a filesystem with type <i>code </i>on a given <i>partition</i>
 mkfs -t <i>code&nbsp;</i>is equivalent to	mkfs.<i>code</i>
@@ -204,17 +204,17 @@ T/F: Run fsck only on unmounted disks	True, can cause corruption on mounted disk
 T/F: use fsck for all filesystems	False, read the distribution's documentation. Sometimes an alternate program is necessary for alternatives to ext filesystems
 df	print summary of disk space used across all partitions
 df -a (df -all)	include pseudo filesystems with 0 size like /proc
-df -h	--human-readable: Convert from raw byte displays to rounded KB, MB, GB
-df -i	--inodes: report inode usage statistics
-df -l	--local: omit networked filesystems
-df -T	--print-type: print the types of filesystems in use
-df -t fstype	--type=fstype: include only mounts with matching filesystem types
+df -h	-h, --human-readable: Convert from raw byte displays to rounded KB, MB, GB
+df -i	-i, --inodes: report inode usage statistics
+df -l	-l, --local: omit networked filesystems
+df -T	-T, --print-type: print the types of filesystems in use
+df -t	-t fstype, --type=fstype: include only mounts with matching filesystem types
 du	report disk usage for a given set of directories
-du -a	--all: also report usage of individual files (not just directories)
-du -c	--total: print total usage at end
-du -h	--human-readable
-du -H	--si: display using metric system instead of base 2
-du -l	--count-links: count hard links independently (useful for CD-ROMs)
+du -a	-a, --all: also report usage of individual files (not just directories)
+du -c	-c, --total: print total usage at end
+du -h	-h, --human-readable
+du -H	-H, --si: display using metric system instead of base 2
+du -l	-l, --count-links: count hard links independently (useful for CD-ROMs)
 Limit du depth with	--max-depth=n
-du -s	--summarize: equivalent to --max-depth=0, only report on the directories listed
-du -x	--one-file-system: do not include other filesystems mounted inside of the directories provided
+du -s	-s, --summarize: equivalent to --max-depth=0, only report on the directories listed
+du -x	-x, --one-file-system: do not include other filesystems mounted inside of the directories provided
