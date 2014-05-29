@@ -1,0 +1,140 @@
+Linux filenames can contain tilde (~)? T or F	True
+Linux filenames can NOT contain spaces? T or F	False
+What characters should be avoided when creating linux filenames?	asterisk (*)<div>question mark (?)</div><div>forward slash (/)</div><div>backslash (\)</div><div>quotation mark (")</div>
+While Linux filename length varies common filesystems such as ext2fs, ext3fs, ext4fs, and ReiserFS are resticted to what value?	255 characters
+Linux treats all files using case-sensitivity? T or F	True
+What does the (?) wildcard mean?	Single character match. &nbsp;b??k matches book, balk and buck
+What does the asterisk (*) wildcard mean?	Any character or set of character match.
+What do bracketed value wildcard expressions mean? &nbsp;example: b[ao][lo]k	Normally match any character in the set, ranges are also acceptable. example: b[a-z]
+What is the process of wildcard expansion called?	file globbing or globbing
+What is the purpose of the ls command?	display the names of files in a directory
+ls -a	<div>--all</div>display all files commonly the dot (.) files
+ls --color	produces a color coded listing
+ls -d	<div>--directory</div>list only the directory name - not the files contained in the directory
+ls -l	long listing that includes information such as file's permission string
+ls -F	<div>--file-type</div>indicator code added to indicate what type of file is listed<div>/ : directory</div><div>@ : symbolic link</div><div>= : socket</div><div>| : pipe</div>
+ls -R	--recursive<div>display contents recursively</div>
+What does the 'cp' command do?	copies a file
+cp -f	--force forces the system to overwrite any existing files without prompting
+cp -i	--interactive<div>prompt before overwriting files</div>
+cp -p	--preserve<div>preserve ownership and permissions, if possible</div>
+cp -R	--recursive<div>recursive copy</div>
+cp -a	--archive<div>similar to -R but also preserves ownership and copies links as is</div>
+cp -R copies symbolic links "as is"? T or F	False, cp -R copies the files to which symbolic links point. &nbsp;cp -a will copy sym links "as is"
+What does the 'mv' command do?	move both files and directories also to rename files and directories
+what does the 'rm' command do?	deletes a file
+It is ok to use a trailing slash with the 'mv' command when specifing the destination directory? T or F	True
+Files removed with rm are placed into a temporary storage at /backup and can be retrieved anytime? T or F	False
+What does the 'touch' command do?	modify timestamps for a file
+What are the three time stamps commonly maintained for all linux-native filesystems?	Last file-modification time<div>Last inode change time</div><div>Last access time</div>
+touch -a	--time=atime<div>change the access time alone, not the modification time</div>
+touch -m	--time=mtime<div>change the modification time alone, not the access time</div>
+touch -c	--no-create<div>don't create any files that don't already exist</div>
+touch -t	sets the time to the specified timestamp
+The 'tar' program is used, in general, for what purpose?	archive data and other media
+tar -c	--create<div>creates an archive</div>
+tar -A	--concatentate<div>appends tar files to an archive</div>
+tar -r	--append<div>appends non-tar files to an archive</div>
+tar -u	--update<div>appends files that are newer than those in an archive</div>
+tar -d	--diff or --compare<div>compares an archive to files on disk</div>
+tar -t	--list<div>lists an archive's contents</div>
+tar -x	--extract or --get<div>extracts files from an archive</div>
+tar -v	--verbose<div>lists all files read or extracted</div>
+tar -z	processes an archive though gzip
+What is the cpio program commonly used to do?	same principles as tar
+cpio -o	--create<div>creates an archive and copies files into it</div>
+cpio -i	<div>--extract</div>extracts data from an existing archive, if a pattern is used only names that match are extracted
+cpio -p	--pass-through<div>combines the copy-out and copy-in modes</div>
+cpio -a	--reset-access-time<div>resets the access time after reading a file so that it doesn't appear to have been read</div>
+cpio -A	--append<div>appends data to an existing archive</div>
+cpio -E &lt;filename&gt;	--patternfile=filename<div>uses the contents of filename as a list of files to be extracted in copy-in mode</div>
+cpio -F &lt;filename&gt;	--file=filename<div>uses filename as the cpio archive file, if ommitted it will use stdin or stdout</div>
+cpio -H &lt;format&gt;	--format=format<div>uses a specified format for the archive file</div>
+cpio -I &lt;filename&gt;	uses the specified filename instead of stdin
+cpio -O &lt;filename&gt;	uses the specified filename instead of stdout
+cpio -t	--list<div>displays a table of contents for the input</div>
+cpio -u	--unconditional<div>replaces all files witout asking</div>
+cpio -v	--verbose<div>displays filenames as they're added or extracted</div>
+What is the purpose of the dd utility?	archive a filesystem at a low level<div><br /></div><div>This utility is a low-level copying program, and when you give it the device file for a partition as input, it copies that partition’s contents to the output file you specify</div>
+What does 'if=' and 'of' stand for in the dd utility?	if = input file<div>of = output file</div>
+Explain the limitation of the dd utility when it copies a partition?	copies empty space
+What does the 'ln' command do?	gives a file multiple identities, like shortcuts and aliases
+ln -f	--force<div>causes ln to remove any existing links or files that have the target link name</div>
+ln -i	--interactive<div>prompts before removing any existing links or files that have the target name</div>
+What are two types of links 'ln' can create? ...and describe them	hard links : creats two directory entries that point to the same file (more precisely, the same inode<div><br /></div><div>symbolic links :&nbsp;a separate file whose contents point to the linked-to file</div>
+To delete a hard linked file, you must delete all hard links to the file? T or F	True
+You can share hard links across low level filesystems? T or F	False<div>they must exist on a single low-level filesystem</div>
+What does the 'mkdir' command do?	creates a directory
+mkdir -m	--mode=mode<div>create a new direcotry with specified permission mode</div>
+mkdir -p	--parents<div>creates the necessary parent directory if it doesn't already exist</div>
+What does the 'rmdir' command do?	destroys a directory
+rmdir -p	delete the entire directory tree, provided there are no other files or directories present
+rmdir -fp is equal to rm -rf? T or F	False
+What are the three tiers of file permissions?	Owner<div>Group</div><div>Users</div>
+What does the 'chown' command do?	changes the files ownership<div><br /></div>
+An orinary user can change the owner of a file they own? &nbsp;T or F	False<div>Only root may use the chown command to change the ownership of files. If an ordinary user tries to use it, the result is an Operation not permitted error message. Ordinary users may, however, use chown to change the group of files that they own, provided that the users belong to the target group.</div>
+What does the 'chgrp' command do?	Changes the files group association
+Only root can use the 'chgrp' command? T or F	False<div>Both root and ordinary users may run the chgrp command, which changes a file’s group.</div>
+What is the meaning of the '-' file type code?	Normal data file; may be text, an executable program, graphics, compressed data, or just about any other type of data.
+What is the meaning of the 'd' file type code?	Directory; disk directories are files just like any others, but they contain filenames and pointers to disk inodes.
+What is the meaning of the 'l' file type code?	Symbolic link; the file contains the name of another file or directory. When Linux accesses the symbolic link, it tries to read the linked-to file.
+What is the meaning of the 'p' file type code?	Named pipe; a pipe enables two running Linux programs to communicate with each other. One opens the pipe for reading, and the other opens it for writing, enabling data to be transferred between the programs.
+What is the meaning of the 's' file type code?	Socket; a socket is similar to a named pipe, but it permits network and bidirectional links.
+What is the meaning of the 'b' file type code?	Block device; a file that corresponds to a hardware device to and from which data is transferred in blocks of more than one byte. Disk devices (hard disks, floppies, CD-ROMs, and so on) are common block devices.
+What is the meaning of the 'c' file type code?	Character device; a file that corresponds to a hardware device to and from which data is transferred in units of one byte. Examples include parallel port, RS-232 serial port, and audio devices.
+Translate file permissions 777 and what is the meaning?	rwxrwxrwx<div>Read, write, and execute permissions for all users.</div>
+Translate file permissions 755 and what is the meaning?	rwxr-xr-x<div>Read and execute permission for all users. The file’s owner also has write permission.</div>
+Translate file permissions 750 and what is the meaning?	rwxr-x---<div>Read and execute permission for the owner and group. The file’s owner also has write permission. Users who aren’t the file’s owner or members of the group have no access to the file.</div>
+Translate file permissions 700 and what is the meaning?	rwx------<div>Read, write, and execute permissions for the file’s owner only; all others have no access.</div>
+Translate file permissions 666 and what is the meaning?	rw-rw-rw-<div>Read and write permissions for all users. No execute permissions for anybody.</div>
+Translate file permissions 664 and what is the meaning?	rw-rw-r--<div>Read and write permissions for the owner and group. Read-only permission for all others.</div>
+Translate file permissions 660 and what is the meaning?	rw-rw----<div>Read and write permissions for the owner and group. No world permissions.</div>
+Translate file permissions 644 and what is the meaning?	rw-r--r--<div>Read and write permissions for the owner. Read-only permission for all others.</div>
+Translate file permissions 640 and what is the meaning?	rw-r-----<div>Read and write permissions for the owner, and read-only permission for the group. No permission for others.</div>
+Translate file permissions 600 and what is the meaning?	rw-------<div>Read and write permissions for the owner. No permission for anybody else.</div>
+Translate file permissions 400 and what is the meaning?	r--------<div>Read permission for the owner. No permission for anybody else.</div>
+How do directories use the execute bit of the permissions block?	When a directory’s execute bit is set, that means that the directory’s contents may be searched
+How do directories use the write bit of the permissions block?	If a user can write to a directory, that user can create, delete, or rename files in the directory, even if the user isn’t the owner of those files and does not have permission to write to those files.
+How do permissions apply to linked files?	All users can read the contents of the link to discover the name of the file to which it points, but the permissions on the linked-to file determine its file access.
+Changing the permissions on a symbolic link affects the linked-to file? T or F	True
+What does Set User ID (SUID) special permission bit do?	used in conjunction with executable files, and it tells Linux to run the program with the permissions of whoever owns the file rather than with the permissions of the user who runs the program
+What does Set Group ID (SGID) special permission bit do?	similar to the SUID option, but it sets the group of the running program to the group of the file
+What does sticky bit special permission bit do?	in most modern versions of unix it’s used to protect files from being deleted by those who don’t own the files
+What is an access control list (ACL)?	a list of users or groups and the permissions they’re given
+What does the 'chmod' command do?	modifies a files permissions
+chmod only takes permissions in a symbolic form? T or F	False<div>You can specify the mode in two basic forms: as an octal number or as a symbolic mode, which is a set of codes related to the string representation of the permissions.</div>
+You can set special permissions using 'chmod' by preceeding the owner, group and world permissions with another digit? T or F	True<div>Three bits are supported (and hence they have values between 0 and 7): adding 4 sets the set user ID (SUID) bit, adding 2 sets the set group ID (SGID) bit, and adding 1 sets the sticky bit. If you omit the first digit (as in the preceding example), Linux clears all three bits. Using four digits causes the first to be interpreted as the special permissions code.</div>
+What is a general way to enable quota support in your filesystem?	You must modify your /etc/fstab entries for any partitions on which you want to use quota support. In particular, you must add the usrquota filesystem mount option to employ user quotas and the grpquota option to use group quotas.
+What command is used to actually set quotas on disk partitions or users?	You can set the quotas by using 'edquota', which starts the Vi editor (described in Chapter 1, “Exploring Linux Command-Line Tools”) on a temporary configuration file (/etc/quotatab) that controls quotas for the user you specify.
+What does the 'find' command do?	Helps find files. &nbsp;searching the specified directory tree, checking filenames, creation dates and so on to locate files that match the specified criteria
+What expression is used by the 'find' command to search by filename?	find -name &lt;pattern&gt;
+What expression is used by the 'find' command to search by permission?	find -perm &lt;mode&gt;<div><br /></div><div>If you precede mode with a +, find locates files in which any of the specified permission bits are set. If you precede mode with a -, find locates files in which all the specified permission bits are set.&nbsp;</div>
+What expression is used by the 'find' command to search by size?	find -size &lt;n&gt; normally &lt;n&gt; is specified in 512-byte blocks... you can also use a trailing c for bytes or k for kbytes
+What expression is used by the 'find' command to search by group?	find -gid GID searches for files whose group id is set to GID<div><br /></div><div>find -group name does so by group name</div>
+What expression is used by the 'find' command to search by username?	find -uid &lt;UID&gt; or find -user &lt;name&gt;
+In what two ways does the 'locate' command differ from the 'find' command?	locate tool is far less sophisticated in its search options<div><br /></div><div>locate program works from a database that it maintains</div>
+What does the 'whereis' command do?	The whereis program searches for files in a restricted set of locations, such as standard binary file directories, library directories, and man page directories. This tool does not search user directories or many other locations that are easily searched by find or locate. The whereis utility is a quick way to find program executables and related files like documentation or configuration files.
+What does the 'which' command do?	Considered as a search command, which is very weak; it merely searches your path for the command that you type and lists the complete path to the first match it finds.<div><br /></div><div>You can search for all matches by adding the -a option.</div>
+What does the 'type' command do?	This command isn’t really a search command; instead, it tells you how a command you type will be interpreted—as a built-in command, an external command, an alias, and so on.
+What does FHS stand for in terms of the linux file system?	Filesystem Hierarchy Standard (FHS)
+What are the four, namely two main distinctions made by FHS over the old FSSTND standard for filesystem hierarchies?	1. shareable and unshareable files<div>2. static and variable files</div><div><br /></div><div>FHS tries to isolate standard directories into this 2x2 matrix of sharable/static/unshareable/variable files</div>
+What is the importance of '/' in FHS	root filesystem<div>Certain critical subdirectories, such as /etc and /sbin, must reside on the root partition, but others can optionally be on separate partitions.</div>
+What is the importance of '/boot' in FHS	contains static and unshareable files related to the initial booting of the computer
+What is the importance of '/bin' in FHS	contains certain critical executable files, such as ls, cp, and mount
+What is the importance of '/sbin' in FHS	similar to /bin, but it contains programs that are normally run only by the system administrator
+What is the importance of '/lib' in FHS	similar to /bin and /sbin, but it contains program libraries, which are made up of code that’s shared across many programs and stored in separate files to save disk space and RAM.
+What is the importance of '/usr' in FHS	hosts the bulk of a Linux computer’s programs
+What is the importance of '/usr/local' in FHS	hosts files that a system administrator installs locally
+What is the importance of '/usr/X11R6' in FHS	houses files related to the X Window System
+What is the importance of '/opt' in FHS	similar to /usr/local in many ways, but it’s intended for ready-made packages that don’t ship with the OS
+What is the importance of '/root' in FHS	home directory for the root user
+What is the importance of '/var' in FHS	contains transient files of various types—system log files, print spool files, mail and news files, and so on
+What is the importance of '/tmp' in FHS	commonly a temporary storage space for files<div>distributions include routines that clean out this directory periodically and sometimes wipe the directory clean at bootup</div>
+What is the importance of '/mnt' in FHS	mounts removable-media devices within its normal directory structure, and /mnt is provided for this purpose
+What is the importance of '/media' in FHS	directory is an optional part of the FHS. It’s like /mnt, but it should contain subdirectories for specific media types, such as /media/floppy and /media/cdrom
+What is the importance of '/dev' in FHS	where&nbsp;device files reside
+What is the importance of '/proc' in FHS	it’s a virtual filesystem that’s created dynamically by Linux to provide access to certain types of hardware information that aren’t accessible via /dev
+/boot typically contains variable and sharable files? T or F	False they are the oposite static and unsharable system specific boot files
+Higher-level start up scripts often reside in what directory?	/etc
+The /bin directory if often shared among clients as to create a global execution directory? T or F	False<div><br /></div><div>Although in some sense the /bin files are shareable, because they’re so important to the basic operation of a computer, the directory is almost never shared—any potential clients must have their own local /bin directories.&nbsp;</div>
+/usr/local is often used to isolate files from software upgrades when the OS is upgraded? T or F	True<div>The idea is to have an area that’s safe from automatic software upgrades when the OS as a whole is upgraded.</div>
