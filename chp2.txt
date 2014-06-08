@@ -1,0 +1,167 @@
+T/F Package system checksums help detect security intrusions.	False - Checksums only help spot disk errors, overwriting of files, and other non-serious problems.
+T/F It is possible (though inadvisable) to install the same library using both Debian and RPM package systems.	False - they maintain separate databases but trying to install the same system-wide library returns an error.
+List at least 3 distributions based on RedHat.	Mandriva, Yellow Dog, SUSE, Fedora, CentOS, RHEL
+List at least 3 CPU architectures.	x86, x86-64, IA-64, ARM, PowerPC, Alpha, 680x0, MIPS, SPARC
+What RPMs are cross-platform?	Source, architecture-independent scripts, configuration, and documentation packages, but not binary packages.
+What is the RPM package naming convention?	packagename-versionNumber-buildNumber.architecture.rpm
+Why are successive build numbers not a good indication of software improvement?	The builds may come from different authors.
+What considerations prevent packages from working on all RPM distributions?	Using different RPM utility versions, unmet dependencies, packages may have different names, satisfies dependency but files are different, distribution-specific scripts or config files (especially servers).
+A package requires a newer version of a library than is on your distribution. What are some solutions and what might go wrong?	Installing or upgrading the depended-on package may break others. Rebuilding from source may still require the upgraded libraries.
+Yum is an acronym for what?	YellowDog Updater, Modified
+rpm -i (oper)	installs package (unless system contains a package of same name)
+rpm -U	installs new package or upgrades existing one
+rpm -F	--freshen, upgrades package only if earlier version exists
+rpm -q	queries packages - if installed, contained files, etc
+rpm -V	--verify, checks files present and unchanged
+rpm -e	uninstall package
+rpm -b	build binary package given source and config (moved to rpmbuild in RPM 4.2)
+rpm --rebuild	build binary package given source (moved to rpmbuild in RPM 4.2)
+rpm --rebuilddb	rebuild RPM database to fix errors
+rpm --root dir	maintain separate Linux installations (any oper)
+rpm --force	may overwrite existing files or packages (-i,-U,-F)
+rpm -h	--hash, display hashes to indicate progress (-i,-U,-F)
+rpm -v	used with -h for uniform hashmarks for each package (-i,-U,-F)
+rpm --nodeps	no dep checks (-i,-U,-F,-e)
+rpm --test	check dependencies, conflicts, and other problems as a dry-run (-i,-U,-F)
+rpm --prefix path	set installation dir (for some packages)
+rpm -a	--all, query/verify all packages (-q,-V)
+rpm -f file	--file, query/verify package owning file (-q,-V)
+rpm -p package-file	query uninstalled RPM package-file (-q)
+rpm -i (option)	display package info - maintainer,description,etc (-q)
+rpm -R	--requires, display depended-on packages/files (-q)
+rpm -l	--list, display files in package (-q)
+How do you extract an RPM package?	rpm2cpio package.rpm | cpio -i --make-directories or alien --to-tgz package
+What is a .spec file?	Holds info that RPM uses to build a package. Accompanies source code tarball and possibly some patch files.
+What are the important yum commands?	install,update,check-update,upgrade,remove/erase,list,provides/whatprovides,search,info,clean,shell,resolvedep,localinstall,localupdate,deplist
+How do you obtain an RPM without installing it?	yumdownloader
+What are GUI alternatives to yum?	kyum,yumex
+Where is the main RPM config file?	/usr/lib/rpm/rpmrc (dont edit this file)
+Where do you make changes to RPM configuration?	/etc/rpmrc or ~/.rpmrc
+What's the main reason to modify RPM configuration?	Make CPU optimizations when compiling source packages (rpmbuild)
+Where are yum config files?	/etc/yum.conf, /etc/yum.repos.d/
+List 3 yum repositories.	Livna, KDE Red Hat, Fresh RPMs
+What is RPM's greatest strength?	ubiquity
+List at least 3 distributions based on Debian.	Ubuntu, Mint, Xandros, Kubuntu, Xubuntu, Knoppix
+T/F Debian packages are rarely used on non-linux kernels.	True - most attempts have been abandoned and use either source tarballs or RPM.
+How are Debian package names different from RPMs?	sometimes omit codes such as architecture (esp on x86). codes may also be different (i386.deb is x86 and all.deb)
+dpkg -i	--install, installs a package
+dpkg --configure	reconfigures installed package, runs post-installation script to set site-specific options
+dpkg -r	--remove, removes package but leaves configuration files intact
+dpkg -P	--purge, removes package including configuration files
+dpkg --get-selections	displays currently install packages
+dpkg -p	--print-avail, displays information about installed package
+dpkg -I	--info, displays information about uninstalled package file
+dpkg -l pattern	--list pattern, lists all installed packages matching pattern
+dpkg -L	--listfiles, lists installed files associated with package
+dpkg -S pattern	--search pattern, locates packages that own files specified by pattern
+dpkg -C	--audit, searches for partially installed packages and gives suggestions
+dpkg --root=dir	maintains multiple Linux installations (all oper)
+dpkg -B	--auto-deconfigure, disables packages that rely on the one being removed (-r)
+dpkg --force-*	override aborts
+dpkg --ignore-depends=package	ignores depencies for package (-i,-r)
+dpkg --no-act	checks dependencies, conflicts, and other problems as dry-run (-i,-r)
+dpkg --recursive	installs all packages that match package-name wildcard in specified directory and all subdirectories (-i)
+dpkg -G	doesn't install package if newer version exists (-i)
+dpkg -E	--skip-same-version, doesnt install package if same version exists (-i)
+Which dpkg commands require a full package filename?	--install(-i) and --info(-I)
+What command gives you best control over a single Debian package?	dpkg
+What are the important apt-cache commands?	showpkg, stats, unmet, depends, pkgnames
+Where are apt-get's repositories specified?	/etc/apt/sources.list
+What are the important apt-get commands?	update, upgrade, dselect-upgrade, dist-upgrade, install, remove, source, check, clean, autoclean
+apt-get -d	--download-only, downloads but doesnt install (upgrade, dselect-upgrade, install, source)
+apt-get -f	--fix-broken, attempts to fix unmet dependencies (install, remove)
+apt-get -m	--ignore-missing, --fix-missing, ignores all unretrievable packages (upgrade, dselect-upgrade, install, remove, source)
+apt-get -q	--quiet, omits progress indicator, -qq (all)
+apt-get -s	--simulate, --just-print, --dry-run, --recon, --no-act, does actions without any changes (all)
+apt-get -y	--yes, --assume-yes, default repsonse to prompts (all)
+apt-get -b	--compile, --build, compiles source pkg after retrieval (source)
+apt-get --no-upgrade	dont upgrade if older version exists (install)
+Describe the dselect user interface.	text-mode, interactive
+What are aptitude's most important commands?	update, install, remove, full-upgrade, safe-upgrade, search, autoclean, clean, help
+Describe aptitude's user interface.	mixes interactive features of dselect with command-line options of apt-get
+Describe Synaptic's user interface.	GUI X-based program with similar function to aptitude and dselect
+How does Debian's configuration packages differ from RPM?	They have more extensive initial setup and can be reset to standard with dpkg-reconfigure
+How do Deb source packages differ from RPM?	Deb source packages exist as groups of separate files - source tarball, one patch file, and optional digital signature .dsc. Multiple RPMs, patches, and a .spec are bundled as one SRPM file.
+T/F Debian packages work better across Debian-based distributions than RPMs work across RPM-based distributions.	True - deb pkgs have more details for system start-up scripts and other features for installing and running
+Where is the main config file for dpkg?	/etc/dpkg/(.)dpkg.cfg
+Where are apt and dselect configuration described?	/etc/apt/apt.conf
+What syntax is apt.conf based on?	Internet Software Consortium's (ISC) Dynamic Host Configuration Protocol (DHCP) and Berkeley Internet Name Domain (BIND)
+What directory do Debian's package tools rely on that should be included in every system backup?	/var/lib/dpkg
+T/F alien automatically updates package system databases for you.	False - it uses the extracting and building tools of these package systems to convert but only modifies a database if the --install option is applied.
+What package formats does alien partially support?	--to-deb, --to-rpm, --to-slp (Stampede), --to-tgz
+When converting a tgz or tar to a package, how are file locations specified?	always in referrence to the system root /
+What are some ways that package dependency conflicts can arise?	missing libraries or support programs, incompatible libraries or support programs, duplicate files or features, mismatched package names
+When can you safely ignore unmet package dependency errors and force an installation?	When all the dependencies were compiled from source (not in the database)
+How can you cope with installing a package on a system with different dependency package names?	Rebuild the new package from source (uses the different names)
+When would you not want to install an older package to match your system's libraries?	If the newer package has important security updates.
+What is another name for libc-2.15.so?	libc.so.6
+What are advantages and drawbacks of static libraries?	Work as expected but consume lots of disk and ram for each program invocation and do not update without recompiling.
+What are advantages and drawbacks of shared libraries?	They are ususally upgraded seamlessly and save space, but require adjusting configuration files and environment variables and may cause severe system problems if corrupted.
+Where is the system-wide library path configuration file?	/etc/ld.so.conf
+Where are package maintainer library files located?	/etc/ld.so.conf.d/*.conf
+What does the env-update utility do?	reads files in /etc/env.d to create several /etc config files including /etc/ld.so.conf (LDPATH lines) in some distributions such as Gentoo
+What command do you issue after changing the system library path?	ldconfig
+What environment variable specifies additional directories to search for libraries?	LD_LIBRARY_PATH
+How does a user permanently add an additional library path?	They set the LD_LIBRARY_PATH in their shell's startup script.
+T/F You must run ldconfig for changes to LD_LIBRARY_PATH to take effect.	False - ldconfig is only for updating the system library path.
+What do you do when a library is in a different location than a program expects?	Create a symbolic link
+T/F You must run ldconfig for symbolic links to libraries to take effect.	True - ldconfig caches the links
+What does ldd do?	lists all the dependencies of a library
+What precedes and follows the => symbol in ldd's output?	a library dependency, its full path name
+How do you update the library cache /etc/ld.so.cache?	ldconfig
+ldconfig -v	verbose
+ldconfig -N	dont update cache, but do update symbolic links
+ldconfig -n	update links in specified directories
+ldconfig -X	opposite of -N, update cache but not links
+ldconfig -f file	use a different configuration file
+ldconfig -C file	change the cache file
+ldconfig -r dir	treat dir as if it were /
+ldconfig -p	display current cache
+uname -n	--nodename, system's network hostname
+uname -s	--kernel-name, usually Linux
+uname -v	--kernel-version, kernel build date and time not a version number
+uname -r	--kernel-release, kernel version number
+uname -m	--machine, CPU architecture code
+uname -p	--processor, manufacturer, model, clock speed, or unknown
+uname -i	--hardware-platform, usually unknown
+uname -o	--operating-system, usually GNU/Linux
+uname -a	--all
+single-character options grouped and preceded by a single dash	Unix98 options
+single-character options grouped but not preceded by a single dash	BSD options
+multi-character options never grouped preceded by two dashes	GNU Long options
+The PS_PERSONALITY variable may be set to ...?	posix, old, linux, bsd, sun, digital, etc
+ps all processes	-A, -e, x (owned by user)
+ps user's process	-u user, U user, --User user, user may be name or ID
+ps extra info	-f, -l, j, l, u, v
+ps process hierarchy	-H, -f, --forest
+ps wide output	-w, w, helpful for redirecting to files
+T/F A process should never consume 90+ %CPU or %MEM	False - it depends on the program if its misbehaving
+What are two GUI variants of top?	kpm, gnome-system-monitor
+top -d amount	delay between updates defaults to 5 seconds
+top -p num	PIDs, list up to 20
+top -n num	number of iterations until terminating
+top -b	batch mode, logging to file
+top command k	kill
+top command q	quit
+top command r	change a process priority
+top command s	change update rate
+top command P	sort by CPU usage
+top command M	sort by memory usage
+How do you display the system load average?	top or uptime
+T/F The largest possible load average is 1.0	False - it may be as large as the total number of cores
+What does jobs do?	displays job IDs rather than PIDs, used by a few programs
+What are two ways to background a process?	append an ampersand & to end of command, suspend (ctrl+z) followed by bg job_num
+T/F In Linux, smaller priority numbers indicate higher priority.	True - the range is -20 to 19, programs default to 0, negative priority numbers require root, and the default nice value is 10
+Give 3 ways to specify a priority value with the nice command.	following a single dash (not to be confused as negative), following the -n option, following the --adjustment= option
+T/F renice can restore a program's original priority	False - only root can increase priority after it has been decreased
+Give 3 ways to narrow what processes are affected by renice	-p pids, -g pgrps, -u users
+How do you send signals to programs?	kill -s, kill --signal, use signal number or SIG* name
+How do you view all signal numbers?	kill -l, documented in man pages
+Why do you sometimes need to use /bin/kill instead of just kill?	kill is also a shell built-in
+signal number 1	SIGHUP
+signal number 9	SIGKILL (cannot be blocked)
+signal number 15	SIGTERM
+What program launches another such that SIGHUP is ignored? Why is this useful?	nohup, the process continues to run when its controlling tty is terminated
+What are two programs that kill based on name rather than PID?	killall, pkill
+killall -i	ask for confirmation
+What might killall do on other non-Linux Unix systems?	kill all processes started by the user who runs the command
