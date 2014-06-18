@@ -1,0 +1,58 @@
+GRUB	Grand Unified Boot Loader
+What are the numbering schemes for GRUB Legacy vs GRUB 2	GRUB Legacy extends to 0.97; GRUB 2 uses 1.9x and 2.x
+MBR&nbsp;	Master Boot Record
+Two boot strategies used by BIOS	1. Find the bootable partition, load the boot sector, run secondary boot loader, run OS<div>2. Directly execute an OS kernel (bypass the secondary boot loader)</div>
+EFI	Extensible Firmware Interface
+EFI Boot Loader Strategy	Store a seperate boot loader for each OS installed.
+T/F BIOS uses a boot manager program to manage each installed boot loader on a system	False (but this is true for EFI)
+GRUB Location in MBR	In unallocated sectors directly after the MBR
+GRUB Location in GPT	A special BIOS Boot Partition
+What are superblocks?	Describes filesystem features like size and status. Can also hold a boot loader in systems using BIOS.
+T/F Boot loaders must always exist in a superblock	False, this is only true for BIOS systems
+Name some commands capable of providing superblock information	debugfs, dumpe2fs
+T/F GRUB Legacy partition numbering starts from 0	True
+GRUB Config Title	Label to display in the boot loader menu
+GRUB Config: Root option	Specifies the location of GRUB Legacy's root partition. Traditionally /boot (or / if /boot does not exist)
+T/F GRUB can exist on FAT formatted partitions	True, can also exist on many other filesystems and media types
+GRUB Config: Kernel Specification	Defines location (relative to GRUB root) and options to pass to the kernel.
+What convention does the GRUB format for selecting a hard disk and partition follow?	(disk,partition) e.g. (hd0,5)
+Describe this GRUB configuration line: (hd0,5)/vmlinuz ro root=/dev/sda5	Boot the Kernel named vmlinuz found on sda partition 5 read only and mount /dev/sda5 as the root filesystem.
+What is a RAM Disk?	Minimal set of drivers, utilities, and configuration files needed by the Linux kernel to boot and read from disk.
+GRUB option for specifying an initial RAM disk.	initrd
+What is rootnoverify used for in GRUB?	GRUB will not attempt to access files in the partition, used to load an OS when GRUB cannot directly load the kernel (DOS/Windows)
+What is GRUB chainloading?	Tell GRUB to pass control to another boot loader, commonly used with +1 to load the first sector of the target OS's root partition.
+GRUB Legacy supports both BIOS and EFI	False
+GRUB 2 supports both BIOS and EFI	True
+Which command can be used to look at kernel ring buffer logs?	dmesg
+Runlevels range from __ to __	0 to 6
+Runlevel 0	Shutdown
+Runlevel 1	Single user mode
+Runlevel 2	Debian - Full multi-user mode with graphical support. Undefined in most other distros
+Runlevel 3	Full multi-user mode without graphical support (Most distributions)
+Runlevel 4	Undefined and customizable
+Runlevel 5	multi-user with graphical support (Most distributions)
+Runlevel 6	Reboot
+Which file contains run level config and definitions?	/etc/inittab
+inittab configuration format	id:runlevels:action:process
+inittab action: wait	Wait for the process to terminate
+inittab action: respawn	Respawn the process whenever it terminates
+T/F inittab runlevels are comma delimited	False, they are not delimited at all (e.g. to enable running on levels 3, 4, and 5 = 345)
+SysV start scripts should start with the letter ____	S
+SysV stop scripts should begin with ____	K
+chkconfig --list	List services and their applicable runlevels
+Using chkconfig how would I turn on a severvice named updog for run levels 2 and 3?	chkconfig --level 23 updog on &nbsp;(can also use off and reset)
+Specify the default runlevel on SysV	id:&lt;runlevel&gt;:initdefault: (e.g. id:5:initdefault:)
+These commands can be used to change your runlevel	init, telinit
+telinit q	Implement changes made to /etc/inittab
+initctl reload	Make upstart reload its configuration
+Upstart service scripts are located at	/etc/init/&lt;servicename&gt;.conf
+systemctl list-units	Display current status of all configured units
+systemctl start <i>name</i>	start a named unit
+systemctl stop <i>name</i>	Stop the named unit
+systemctl reload <i>name</i>	Force a unit to reload its configuration
+systemctl restart <i>name</i>	Cause the named unit to shutdown and restart
+systemctl status <i>name</i>	Display status of the named unit (can use a PID instead)
+systemctl enable <i>name</i>	Enable the named unit to start on boot
+systemctl disable <i>name</i>	Do not start the named unit at boot
+What is systemctl?	Control program for systemd init system
+Name the three most common init systems	SysV, Upstart, Systemd
