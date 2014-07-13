@@ -1,0 +1,191 @@
+GUI	Graphical User Interface
+Name the three most common X implementations	XFree86, X.org-X11, Accelerated-X
+This was the dominant X implementation before 2004	XFree86
+Significant occurred to XFree86 between version ___ and the 4.x series	3.3.6
+T/F X.org-X11 is based on XFree86	True
+T/F Accelerated-X is an open source alternative to XFree86 and X.org-X11	False, it is proprietary
+XFree86 -configure generates which file?	/root/XF86Config.new
+Xorg -configure generates which file?	/root/xorg.conf.new
+T/F generating new configuration scripts should be done while the X server is not running	True
+Which tool does Red Hat provide to configure X?	system-config-display
+SUSE provides which tools to configure X?	YaST (and YaST2)
+xf86cfg	deprecated XFree86 configuration tool
+xorgcfg	Deprecated X.org-X11 configuration tool
+The main X configuration file is named?	xorg.conf
+Which locations can xorg.conf be located at?	/etc/X11, /etc, other locations are also possible
+T/F xorg.conf must be present for X to work	False, it is becomming common for systems to rely purely on auto-configuration
+xorg.conf is broken into blocks beginning with ___ and ending with ___	Section, EndSection
+Switching the system's current ____ is a good way to troubleshoot X	runlevel
+This command will start the X server	startx
+This key sequence kills the X server	Ctrl+Alt+Backspace (this key sequence is commonly disabled by distributions)
+T/F Section ordering is significant in xorg.conf	False
+This xorg.conf section type loads drivers for special features and hardware	Module
+In the module section of xorg.conf, use the ____ option to enable a driver or feature	Load
+This xorg.conf section type allows the use of a keyboard or mouse	InputDevice
+What is the purpose of a section Identifier in xorg.conf?	Handle for making reference between sections.
+T/F Look in your product manual for a product Identifier to use in xorg.conf for Section Identifiers	False, you can name this anything you want
+Three most common xorg.conf Keyboard Drivers	kbd, Keyboard, evdev
+xorg.conf Keyboard Option XkbModel	keyboard model (e.g. pc105 for generic 105 key keyboard, see the xorg guide for a full list)
+xorg.conf Keyboard Option XkbLayout	Localized layout for keyboard (e.g. "us")
+How would I modify the key press duration and repeat count in an xorg.conf InputDevice section?	Option "AutoRepeat" "X Y" where X is repeat delay and Y is repeat frequency measured in ms.
+List the mouse protocol options	Auto, IMPS/2, ExplorerPS/2, PS/2, Microsoft, Logitech
+Many USB mice use the ____ software protocol even though they don't use the hardware protocol that shares its name.	PS/2
+What does the xorg.conf mouse InputDevice "Device" option specify?	The device file (e.g. /dev/mouse)
+Most common full path to device files for USB mice	/dev/input/mice, /dev/mouse, /dev/usb/usbmouse
+Most common full path to device files for PS/2 mice	/dev/psaux
+Most common full path to device files for Serial port mice	/dev/ttyS0, /dev/ttyS1
+This xorg.conf option allows simulating a 3 button mouse with simultaneous 2 button clicks	Option "Emulate3Buttons" "yes"
+This xorg.conf option allows usage of the mouse wheel	Option "ZAxisMapping" "4 5" (map the wheel up/down to button presses numbered 4 and 5 respectively)
+This section allows you to specify a display's refresh rates and Modelines	Section "Monitor"
+T/F xorg.conf Monitor ModelName must match the manufacturer's model	False, specified for documentation purproses only
+These xorg.conf options specify monitor horizontal and vertical refresh rates respectively	HorizSync, VertRefresh
+This xorg.conf option determines the display resolution	Modeline
+What is DDC (display protocol); What does it do?	Data Display Channel - Protocol that allows monitors to communicate display resolutions and referesh rates
+Video drivers usually reside at these file paths	/usr/X11R6/lib/modules/drivers/, /usr/lib/xorg/modules/drivers/
+Video drivers end with this suffix	_drv.o
+A driver named ati_drv.o, should be specified in the xorg.conf Device section as	Driver "ati"
+These two video drivers are generic and should work with most cards (but not optimally)	fbdev, vesa
+These video drivers work with nVidia cards	nv, nouveau
+This video driver works with ATI cards	radeon
+This video driver works with Intel cards	intel
+T/F Setting the Device VenorName is required	False
+T/F Setting the Device BoardName is required	False
+T/F Setting the Device Driver is required	True
+This option allows you to set the ammount of RAM for your video card	VideoRam
+T/F Setting Device VideoRam is required for video cards	False, commonly auto-detected
+This section tells the X server about a combination of video cards and monitors you wish to use	Screen
+What is the screen section in xorg.conf used for?	Specifying the combination of monitors and video cards you wish to use
+xorg.conf &gt; Screen &gt; Device option	Specify the device id to use for the screen
+xorg.conf &gt; Screen &gt; Monitor option	Specify the monitor id to use for the screen
+Use this option to select a Screen's default Display in xorg.conf	Screen &gt; DefaultDepth N - will prefer the Display with matching depth unless overridden on x startup (e.g. CLI args)
+What defines the video modes that X may use?	Screen Display SubSections<div><br /></div><div>Section "Screen"</div><div>&nbsp; SubSection "Display"</div><div>&nbsp; &nbsp; Depth 24</div><div>&nbsp; &nbsp; Modes "1920x1080" "1280x1024" "1024x768"</div><div>&nbsp; EndSubSection</div><div>EndSection</div>
+What equation is used to calculate the ammount of required video RAM	R = xres * yres * bits per pixel
+This xorg.conf section links together all other components	ServerLayout
+The xorg.conf ServerLayout section typically references which other sections?	Screen and two InputDevices (mouse and keyboard)
+What xorg.conf configuration option can be used to to stretch an X display across multiple monitors	Reference multiple Screens in a ServerLayout section
+xdpyinfo	List information about the current display
+xdpyinfo -ext <i>extension</i>	List display information for a particular X&nbsp;extension.&nbsp;
+Display X information for a particular window with the ____ command	xwininfo
+xwininfo -id <i>id</i>	Display X window information for a window with the given window id
+xwininfo -name <i>name</i>	List X window information for a window with a given name
+Which options to xwininfo allow you to list X details for windows and their relationships to each other	-tree, -children
+xwininfo -stats	on by default; restrict output with -bits
+xwininfo -events	List information on window events as they are processed
+xwininfo -size	Display size hint information for a window
+xwininfo -wm	Display window manager information for a window
+xwininfo -frame	Display window manager frame information
+xwininfo -metric	Display window size information in millimeters (in addition to pixels), -english for ft/in, or -all for all
+T/F Bitmap fonts should be optimized for a particular resolution	True, they do not scale well
+Outline Fonts are require [less|more] computation than bitmap fonts	more
+Two dominant outline font formats	Adobe's PostScript Type 1, Apple's True Type
+Describe installing a core X font	1. Add the font to a font directory on the X server's font path.<div>2. Create fonts.dir summary file.</div><div>3. Restart x or use xset to re-index the fonts</div>
+First line of fonts.dir	number of fonts to be listed
+XLFD	X Logical Font Description - used in fonts.dir
+mkfontscale	Read all fonts in the current directory and create fonts.scale
+mkfontdir	Read the current directory and create fonts.dir
+How is fonts.scale different from fonts.dir	When generated by mkfontscale, fonts.scale only contains outline fonts and should be merged into fonts.dir
+ttmkfdir	create fonts.dir for TrueType fonts
+type1inst	Create fonts.dir for Type 1 fonts
+Why is mkfontscale preferred over ttmkfdir and type1inst	mkfontscale is newer and can handle both TrueType and Type 1 fonts
+How to add new font directories to xorg.conf	Section "Files"<div>&nbsp; FontPath "/path/to/fonts"<br /><div>EndSection</div></div>
+What does FontPath "/path/to/font:unscaled" mean for a FontPath listing in xorg.conf	Used only for bitmap fonts. Only use the font if it exactly matches the requested size (do not scale)
+xset fp+ /path/to/dir, xset +fp /path/to/dir	Append/Prepend a font directory to a running X server's font path
+xset fp rehash	Re-index available fonts on a running X server
+xfontsel	Small program to test out available fonts
+What font path declaration specifies a local font server	FontPath "unix:/7100" or FontPath "unix:/-1"
+Which FontPath specifies a remote font server	FontPath "tcp/some.host.net:7100"
+To configure an X font server use assign paths to the ____ variable instead of FontPath	catalogue, entries are comma delimited and may span multiple lines
+use ___ to start an x font server	xfs
+T/F X core fonts display match printed output	False
+T/F X core fonts support kerning (letter spacing)	False
+Replacement for the X core font system	Xft
+What is another term for "font smoothing"	anti-aliasing
+T/F X core fonts are client/server based	True
+T/F Xft is client/server based	False, client side only
+Which file drives Xft configuration	/etc/fonts/local.conf
+T/F Xft uses the same font directories as X core fonts	True
+fc-cache	Run as root, re-index Xft font cache
+XDMCP	X Display Manager Control Protocol
+List the five most common XDMCP servers.	X Display Manager (xdm), KDE Display manager (kdm), GNOME Display Manager (gdm), MDM Display Manager (mdm), Light Display Manager (LightDM)
+T/F KDE should only be launched from the KDE Display Manager	False, display managers typically allow launching any desktop environment
+XDMCP Servers are typically only enabled in runlevel ____	5
+In some distributions the ____ environment variable drives the decision on which display manager to use. Definition for this variable is usually found somewhere in the /etc/____ directory	DISPLAYMANAGER, sysconfig
+XDM main configuration file	/etc/X11/xdm/xdm-config
+XDM configuration to allow remote login	DisplayManager.requestPort: 177
+Traditional XDM Server Port	177
+This file controls which hosts may use remote access in XDM	/etc/X11/xdm/Xaccess
+Which directories is configuration for KDM typically found?	/etc/X11/kdm, /etc/kde/kdm, may also be in other strange locations (e.g. /usr/lib/kde4/libexec)
+What is a good way to discover where config files for your desktop manager / environment should be located?	Query your package manager
+Where are configuration files for GDM typically located?	/etc/X11/gdm or /etc/gdm
+T/F Machines running programs and serving the display to a remote system are considered X clients	True, perhaps backwards from the way most people conceptualize the client/server model, the user's workstation is still considered the X server
+To allow remote display access to a host use the ___ command	xhost +&lt;hostname&gt;
+What is the DISPLAY environment variable used for, what is it's format?	<div>export DISPLAY=hostname:D.S</div><div><br /></div><div>hostname - host where the X server runs. (localhost if omitted)</div><div>D - display sequence number (usually 0).</div><div>S - screen number. (0 is the default)</div>
+Why is using xhost and DISPLAY a bad idea?	The display is not secure, use ssh tunnels instead
+Which client options allow for X forwarding in ssh?	-X, -Y, or set ForwardX11Trusted in /etc/ssh_conifg&nbsp;
+Which server side option allows for X forwarding in ssh?	X11Forwarding (enable in /etc/sshd_config)
+X forwarding without ssh is typically disallowed by?	Display Managers, to enable (bad idea) modify their respective configuration files
+Most popular alternative to X forwarding for remote desktop of a linux system.	Virtual Network Computing (VNC)
+What is the AccessX program used for?	Setting Accessibility options for X windows
+What are Sticky Keys	Causes modifier keys (ctrl, alt, shift) to "stick" - remain active even after the key has been released for a short time. Helps users who have difficulty pressing multiple keys at once
+What are Mouse Keys?	Emulate a mouse by using the keypad
+What is keyboard bounce?	When a key is accidentally pressed multiple times in succession.
+What are Slow Keys?	A key must be held down longer before registering as a key press event. Helps users who accidentally press keys
+What are Simulated Mouse Clicks?	simulate a mouse click when the cursor stops moving, or a double click if a mouse button is held for long enough.
+What are Mouse Gestures?	similar to keyboard shortcuts, but for mice - by moving the cursor in recognized shapes
+KDE systemsettings command	Allows you to configure desktop settings, such as the default fonts
+What is BRLTTY	Linux daemon that redirects text-mode console output to a braile display. Also supports speech synthesis and multiple virtual terminals.
+What time zone format does Linux use internally?	Coordinated Universal Time (UTC)
+UTC	Coordinated Universal Time
+What actions are necessary to configure a linux system's timezone information?	Point the /etc/localtime symlink to the correct timezone file located in /usr/share/zoneinfo
+To temporarily set the timezone information set the ___ evnironment variable	TZ
+What formats does the TZ environment variable accept?	:timezone_file<div>std offset (where std is a timezone code)</div><div>std offset dst[offset], start[/time],end[time] (for daylight savings)</div>
+What is a locale?	User's language, country, and related information
+What is the linux locale format?	[language[_territory][.codeset][@modifier]]
+What environment variables are available to a user relating to locale?	LANG, LC_CTYPE, LC_NUMERIC, LC_TIME, LC_COLLATE, LC_MONETARY, LC_MESSAGES, LC_PAPER, LC_NAME, LC_ADDRESS, LC_TELEPHONE, LC_MEASUREMENT, LC_IDENTIFICATION, LC_ALL
+What is the purpose of the LC_ALL environment variable?	When set, it overrides all other LC_* variables.
+locale -a	Display all available locales
+What does setting LANG=C do?	Programs should display output without passing through locale translation. Useful for scripts, special programs, and development
+Use ____ to convert between character sets	iconv -f encoding [-t encoding] [inputfile]<div>-f: source encoding</div><div>-t: target encoding (defaults to current locale)</div>
+What type of documents do applications submit print jobs as?	PostScript documents
+A program called ____ converts PostScript documents into a form that printers can actually handle.	GhostScript
+CUPS	Common Unix Printing System
+T/F A printer should only have one print queue	False, a printer can have multiple queues for various reasons (e.g. priority, double vs single sided, etc)
+Users can submit print jobs from the command line with the ___ command	lpr
+Which directory typicallys stores data for print jobs in the queue?	/var/spool/cups
+In linux the printer driver is a part of ____	GhostScript
+What is the largest drawback of GhostScript?	It can produce large bitmap files after conversion from PostScript.
+GhostScript is inserted into the printing pipeline via ____	smart filters
+T/F Linux printing systems run as daemons	True
+Which file lists printers available to cups?	/etc/cups/printers.conf
+PPD	PostScript Printer Definition
+Additional printer options are stored in which directory?	/etc/cups/ppd
+How is administration and configuration of CUPS different from most other linux systems?	CUPS strongly supports web-based configuration tools
+IPP	Internet Printing Protocol
+IPP Browsing feature	Enables computers on a network to automatically exchange printer lists
+What is the configuration file for the cups daemon	/etc/cups/cupsd.conf
+The CUPS daemon configuration file is similar to configuration for what other service?	Apache Web Server httpd
+What does "Order Deny, Allow" mean?	Apply deny directives first, then allow directives (allow directives may override deny directives)
+In CUPS It is a good idea to set the default deny policy to ___	Deny from All
+In CUPS what does the BrowseAllow directive do?	Notifies CUPS which other hosts are allowed to browse the print system
+CUPS configuration Access	Give non-browse access to printers. Often the same set of hosts as BrowseAllow
+T/F CUPS disables browsing by default	False, default is Browsing On
+What are some of the most common places to find additional printer definitions.	Your Linux Distribution (special packages), Foomatic, Gutenprint, CUPS Driver Development Kit (DDK), Printer Manufacturers
+The cups print daemon protocol is similar to which other protocol	Hyper Text Transfer Protocol - HTTP
+What is the default CUPS printer port?	631
+SMB	Server Message Block
+CIFS	Common Internet File System
+lpr, lpq, lprm, and lpc all accept which parameter to specify a print queue	-P
+lpr	Print a file
+lpr -r	delete the original file after printing it
+lpr -h	suppress the banner
+lpr -J	specify a jobname (-C and -T do the same)
+lpr -# number	print multiple times
+mpage	submit a print job that reduces the output to smaller pages per printed sheet, can use -1, -2, -4, and -8 to specify how many per sheet
+lpq	display information about a print queue
+lprm	remove a print job
+lprm id	remove job by id
+lprm -	remove all jobs belonging to the user
+lpc	control (e.g. start, stop, reorder) jobs.The cups web interface is much simpler to use.
+cupsenable	enable a print queue
+cupsdisable	disable a print queue
+lpmove	move a print job from one queue to another
