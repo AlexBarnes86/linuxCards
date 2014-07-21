@@ -1,0 +1,170 @@
+Maximum length for a username	32
+T/F user names must begin with a letter	True
+Why is using special punctuation in a username a bad idea?	Several key utilities impose more restrictive rules on naming - e.g. useradd
+What is a common practical upper limit for username length? Why?	8, some administrative utilities truncate past 8 characters.
+T/F linux account names are case sensitive	True
+Linux users are organized into ____	groups
+T/F It is possible to control access to hardware by modifying file permissions	True
+Which file controls user membership to groups	/etc/group
+Which file defines users' primary group	/etc/passwd
+Which file defines user accounts?	/etc/passwd
+newgrp &lt;groupname&gt;	Change your current group for running programs and creating files as
+UID	Useer Identifier
+GID	Group Identifier
+Linux distributions reserve at least the first ___ sequential user and group Ids for system use	100
+What is significant about UID/GID 0	It is the root account and group Id
+Linux user and group ids typically start at either ____ or ____	500 or 1000
+T/F Most account administration tools recycle ids belonging to previously deleted users and groups	False
+Why is reusing a UID or GID potentially problematic?	If old files exist that belong to the old Id, the new account/group re-using that Id will own those files.
+Which file can control limits on valid UID ranges?	/etc/login.defs
+What is typically the GID on most distributions that have a shared "users" group	100
+T/F It is possible for user's to share the same UID	True, they are treated equivalently for permissions, but may have seperate home directories, passwords, etc. (Should be avoided)
+T/F Any account with UID 0 is given full control on the system	True, equivalent to root
+Which file specifies default configuration parameters when using useradd?	/etc/login.defs
+useradd -c	comment
+useradd -d dir	home directory
+Where is a user's home directory typically found?	/home/&lt;username&gt;
+useradd -e	Account expiration date (default: no expire)
+useradd -f	specify number of inactive days - completely disable a user's password (default -1, never)
+useradd -g	default group
+useradd -G	additional groups
+useradd -m	Create a home directory (typically -m is enabled by default)
+When creating users the default directory structure for accounts are templated from ____	/etc/skel
+useradd -M	Skip home directory creation
+useradd -p	Specify a pre-encrypted password
+useradd -s	Set the user's default shell
+useradd -u	specify a UID
+Which flags allow useradd to create shared UIDs?	-u UID -o (-u to specify the UID and -o is to enable sharing)
+useradd -n	No private user group (RedHat based distros)
+passwd &lt;user&gt;	change a user's password (your password if no user passed)
+passwd -k	Update an expired account
+passwd -l	lock an account
+How are users prevented from logging in when their account is locked?	User's encrypted password is prefixed with !
+passwd -u	unlock account
+passwd -d	remove a password from an account
+passwd -S	display account password information (password is set, encryption standard, etc)
+usermod	Modify an existing user account
+usermod -m	used with -d, move files to the new home location
+usermod -l	Modify a user's login name<div>usermod -l &lt;new&gt; &lt;old&gt;</div>
+usermod -L	lock a user's password (same as passwd -l)
+usermod -U	unlock a user's password (same as passwd -u)
+usermod -G	add user to groups to those listed, this is not additive to the user's existing groups without -a
+chage	modify account settings relating to account expiration
+Which two ways can an account automatically expire?	Password hasn't been changed recently enough, system date is past an account expiration date
+chage -l	display account expiration and password aging information for a user
+chage -m	Set the minimum number of days between password changes
+chage -M	Set the maximum number of days between password changes
+chage -d	Set the password change date
+chage -I	Set the maximum number of innactive days
+chage -E	Set expiration date, -1 for never
+chage -W	Warn user number of days before expiration&nbsp;
+Fields in /etc/passwd and /etc/shadow are delimited by	:
+What fields (and their order) are found in /etc/passwd	Username, UID, primary GID, Comment, Home Directory, Default Shell
+What does a user's password marked with an 'x' mean in /etc/passwd	The encrypted password is found in /etc/shadow
+How can a user account be active but not able to log in?	Set the user's shell to something that prevents gaining access to a full shell. e.g. /bin/false, /bin/passwd
+What happens if you set a user's default shell to /bin/shutdown	Whenever that account logs in, the system will shutdown
+Which fields (and their order) are listed in /etc/shadow	username<div>password</div><div>last password change</div><div>days until password may be changed</div><div>days before change is required</div><div>days of warning before password expiration</div><div>days between expiration and dactivation</div><div>expiration date</div><div>special flag (future use, usually meaningless)</div>
+Why is it a bad idea to copy passwords between systems found in /etc/shadow	Encrypted passwords are salted, by copying the password instead of re-running passwd it is obvious the passwords are identical between the systems
+A user is able to log into a system, but their account does not appear in /etc/passwd or /etc/shadow. What is going on?	The system uses a centralized network account database (e.g. NIS, LDAP, AD, Kerberos, etc)
+userdel	delete a user account from /etc/passwd and /etc/shadow
+userdel -r	--remove, remove all the user's files from the mail spool and home directory (and the home directory itself)
+userdel -f	Force user deletion, even when logged in
+userdel -h	help
+groupadd	Add a new group to the system
+groupadd -g	specify a GID to use, using -o allows groups to share the same GID
+groupadd -r	Create a system group
+Which parameter controls the range of GID numbers reserved for system use? Which configuration file is it found in?	SYS_GID_MIN, /etc/login.defs
+groupadd -f	force, can create a group that already exists
+groupmod	modify a group
+groupmod -g	Modify a group's GID
+groupmod -n	rename a group
+gpasswd	allows setting a password for a group, and group administrators
+gpasswd -a	Add a user to the specified group
+gpasswd -d	delete a user from a specified group
+gpasswd -R	dissallow users to become a member via newgrp
+gpasswd -r	remove the group password
+gpasswd -A	Specify group administrators (non-additive)
+gpasswd -M	Add specified users to the list of group members
+What are the fields and their ordering in /etc/group	Group Name, Password (may be an x, see /etc/gshadow), GID, User List
+This command removes a group	groupdel
+List all files that contribute to creating users'&nbsp;environments in bash	/etc/profile, /etc/bash.bashrc, ~/.profile, ~/.bashrc, ~/.bash_profile, ~/.profile
+This command displays your current environment	env
+Which daemon is responsible for handling system logs?	syslogd
+Which daemon is responsible for kernel logging?	klogd
+Which configuration file controls syslogd?	/etc/syslog.conf
+What format do lines found in syslog.conf take?	#comment<br />facility.priority &nbsp; &nbsp;action
+What is a syslog facility?	code word for the type of program that generates log messages
+What are the syslog priorities?	debug, info, notice, [warning, warn], [error, err], crit, alert, [emerg, panic]
+What are the valid syslog facility codes?	auth, authpriv, cron, daemon, kern, lpr, mail, mark, news, security, syslog, user, uucp, local0, local1, ..., local7
+How can syslog be configured to reverse the order of priority matching?	Prefix the priority with an exclamation point, !
+How to match a syslog priority exactly?	Prefix the priority with an equals sign, =
+How to match all syslog priorities?	Use an asterisk, *
+What are valid syslog action values?	file names (to log to a file), devices like /dev/console, remote machine name prefixed with @, list of users (or an asterisk for all users) to display the meessage to
+If you make changes to /etc/syslog.conf you may also need to make changes to what type of scripts and processes on the system?	scripts and processes responsible for handling log rotation
+T/F All servers and daemons use syslogd for compatibility reasons	False, many have their own logging mechanisms
+Which program allows a user or script to manually log to syslogd?	logger
+logger -i	Record the PID of the logger process along with the data
+logger -s	Output to Standard Error
+logger -d	use datagrams rather than the logger socket
+logger -f	log the entire contents of a specified file
+logger -p	specify a priority
+logger -t	Set a tag for the log message, defaults to "logger"
+logger -u	specify a socket
+Which configuration file controls the logrotate daemon?	/etc/logrotate.conf
+Which option in logrotate.conf instructs logrotate to use dates instead of sequence numbers?	dateext
+Which logrotate option in logrotate.conf selects a compression tool? parameters to be passed to the compression tool?	compresscmd, compressoptions
+This option causes logrotate to create a new log file each time	create
+This option tells logrotate to copy the old log file into a new name and then clear all the data out of the original	copytruncate
+What time interval options are available for logrotate	daily, weekly, monthly
+This option sets the maximum size for a log file in logrotate.conf	size, can specify size with k, M, or G (e.g. 100k)
+This option tells logrotate how many old log files to keep around	rotate N
+This option instructs logrotate to email a log file when it is rotated out of existence	mail <i>address</i>&nbsp;(nomail disable all mail)
+These options in logrotate.conf enable execution of scripts before / after log rotation occurs	prerotate, postrotate
+Log rotation scripts for individual programs can be found in which directory?	/etc/logrotate.d
+How many clocks do most computers have? What are they?	2, a hardware and software clock
+When is the software clock set on a Linux system?	Boot time, the software clock is set to the hardware clock
+What time format does Linux use internally?	Coordinated Universal Time (UTC)
+T/F Hardware clocks on modern computers are extremely accurate	False, both hardware and software clocks are prone to drifting
+NTP	Network Time Protocol
+By default the date program assumes you are setting the time in which format?	localtime
+Which command allows you to set the hardware clock?	hwclock
+hwclock -r	--show, show the hardware clock time
+Set the hardware clock to the software clock	hwclock --systohc
+Set the software clock to the hardware clock	hwclcok --hctosys
+NTP servers are divided into numbered layers called ____&nbsp;	stratum
+Which file corrects the innacurracies of the system clock for ntp	ntp.drift (found in /var/lib/ntp or sometimes /etc)
+What is the public NTP server pool domain name?	pool.ntp.org
+Which daemon allows you to run your own NTP server?	ntpd
+Which file configures ntpd?	/etc/ntp.conf
+Why are multiple ntp servers typically in ntp.conf?	To provide fallbacks and better accuracy
+ntpq	Query the NTP system about various parameters (such as stratum, delays, offsets, etc)
+ntpdate	(Deprecated) perform a one time clock setting to a specified ntp server
+ntpd -g	Replacement for ntpdate, perform a one time clock setting to a specified server
+This tool schedules jobs that should be routinely performed	cron
+How often does the cron daemon check for new tasks to perform?	Once every minute
+Which config files does cron retrieve jobs from?	files in /var/spool/cron and /etc/cron.d and the /etc/crontab file
+What are the two types of cron jobs?	system and user
+Which file controls system cron jobs?	/etc/crontab
+What is the format of crontab?	Minute Hour Day Month Weekday User Command<br />* * * * * root command
+Crontab match all possible values	*
+Crontab, notation to match a list of any of specified values	comma seperated list
+Crontab notation for a range of values	Two values seperated by a dash (e.g. 9-17 for 9:00am to 5:00pm)
+Crontab notation for stepped values	Slash, e.g. */10 in the minute field means every 10 minutes
+Which program should you use to create a user cron job?	crontab
+crontab -u	Specify a user to create a cron job for
+crontab -l	list the user's current crontab
+crontab -r	remove the current crontab for a user
+crontab -e	edit the current crontab for a user
+Where are user crontab files typically stored	/var/spool/cron, /var/spool/cron/tabs, or /var/spool/cron/crontabs
+Which file acts as a whitelist for user crontabs?	/etc/cron.allow
+Which file acts as a blacklist for user crontabs	/etc/cron.deny
+What is the anacron process used for?	Running jobs in a similar fashion as cron, but when the system may not be up all the time. Makes best effort to run jobs at a given frequency
+Which file configures anacron?	/etc/anacrontab
+What is the format for the anacrontab file?	period delay identifier command<div>period is specified in days</div><div>delay is specified in minutes</div>
+This command will schedule a job to run in the future	at
+What time formats are avaialabe for the at command?	Time of day (HH:MM)<div>noon, midnight, teatime</div><div>MMDDYY, MM/DD/YY or DD.MM.YY</div><div>month-name day or month-name day year</div><div>now + N units (e.g. now + 2 hours)</div>
+at -f	specify a file to execute
+atq	list pending jobs
+atrm	remove a pending job
+batch	similar to at, but only execute when the system load is below 0.8
+What might prevent oridnary users from being able to run the at command?	/etc/at.allow or /etc/at.deny must be present and not prevent the user from using the at command
