@@ -1,0 +1,102 @@
+How do you make an environment variable available to the current shell?	export VARNAME=varval
+How do you set an environment variable for only a particular program?	env VARNAME=varval program
+env -i	--ignore-environment
+env -u VARNAME	--unset=VARNAME
+Why is it unconventional to add . to the PATH variable?	A malicious replica of commonly used programs such as ls may be present. '.' Should be appended to the end of the path list if at all.
+Where do you set environment variables system wide?	/etc/profile
+What is an alias? What is it's syntax?	A shorthand name for one or a few commands. alias name='commands'
+What is the configuration file for global logins?	/etc/profile, /etc/profile.d/
+What is the configuration file for global non-logins?	/etc/bashrc, /etc/bash.bashrc
+What is the configuration file for user logins?	~/.bash_login, ~/.profile, ~/.bash_profile
+What is the configuration file for user non-logins?	~/.bashrc
+T/F You cannot rely on global shell configuration files to implement security features.	True, user configuration files can over-ride so you should set permission bits on files with restricted access.
+What directory provides a template for newly created accounts?	/etc/skel
+What is a common problem with logout scripts (~/.bash_logout)?	They may not work well when users are logged in multiple times. Logging out may break the other sessions.
+What bash file lets you customize your keyboard configuration?	~/.inputrc
+What is a big limitation to ~/.inputrc?	It has no impact on the X windowing system, not even in xterm.
+What line identifies the shell in a script?	#!/bin/[shellname]. The #! is called shebang, hashbang, hashpling, or pound bang.
+After you've written a script, what needs to be done before you can run it?	Give execute permissions with chmod u+x script.
+How do you run a script in the current shell without creating a new shell?		source script, . script
+How are commands conventionally called in scripts?		Using their full path name.
+What are the variables passed to a script?	parameters, $1-9
+T/F The first variable passed to a script is in $0.	False, $0 holds the name of the script.
+What command is useful for processing a list of parameters whose order or number is unknown?	The shift command moves all parameters to a lower identifier, except $1 is discarded and $0 is preserved.
+How do you use a variable once it's been defined?	With a dollar sign $var.
+Describe when to use single quotes vs double quotes.	Use double quotes when you have shell substitutions (ie globbing, variables), and single quotes for literal expressions.
+Describe when to use backticks.	They are used to substitute with the output of commands.
+How do you get variables from the user interactively?	read variable
+What do [] mean in a script?	It is an alias for the builtin test command frequently used with conditionals.
+Give some common test parameters and their meanings.	-d directory, -e exists, -f regular file, -r readable, -w writable, -s not empty, -z zero length string, -n non-zero length string, -lt less than
+What are the differences between (), [], (()), [[]] in bash?	() forks a subshell. [] is the test command. If you want to use () as a subexpression inside [] they must be escaped \(\) or else it will fork. (()) is exclusively for arithmetic operations. [[]] is similar to test but allows for more natural syntax and () subexpressions do not have to be escaped.
+What are all the problems with this case statement: case (word) { a*b: command; ?: default-command; }?	1 the word to be matched is not parenthesized. 2 use 'in' instead of '{'. 3 use ')' instead of ':'. 4 use two ;;. 5 use '*' instead of '?' for default case. 6 use 'esac' instead of '}'.
+What are all the problems with this for statement: for ($x in seq 1 10) do; echo "$x"; end	1 do not use parenthesis. 2 x is declared without a dollar sign. 3 seq 1 10 must be encapsulated in backticks. 4 the semicolon comes before 'do'. 5 use 'done' instead of 'end'
+What are a couple syntaxes for bash functions? 	func() { commands }. function func { commands }.
+How do bash function parameters work?	There is nothing listed in the function declaration's parenthesis. It is called without parenthesis. They are accessed via $1-9 within the function.
+What is a push mail protocol? Give an example.		The sending system initiates the transfer. SMTP (Simple Mail Transfer Protocol)
+What is a pull mail protocol? Give an example.		The receiving system initiates the transfer. POP (Post Office Protocol)
+What are SMTP servers also known as?		MTAs (Mail Transfer Agent)
+What does an MTA do?		It recieves messages from clients as a server, adds a header, looks up the destination with DNS, and sends the message along as a client.
+How does a computer recieve mail?		It can do so directly or with a POP or IMAP server.
+Why can it be difficult to trace email back to its original source?		Spammers know how to forge headers.
+What kind of setup allows mail from anyone to pass through an SMTP server?		open relay configuration
+Where does a mail server store incoming messages?		/var/spool/mail/<user> or the user's mail spool (which may be a subdirectory of their home folder)
+What is a MUA?		Mail User Agent. They are email clients.
+What is the advantage of having a local SMTP server?		It can queue mail for delivery even when the network is down.
+What senario could one user gain access to a previous user's email?		The previous user's mail spool was not deleted and the new user has the same name.
+List four popular email servers.		Sendmail, postfix, exim, qmail
+Describe sendmail.		Very powerful, but difficult to configure its arcane format. Not as popular as it once was.
+Describe postfix.		Collection of programs to replace sendmail. Easier to configure. Its modular design improves security in theory.
+Describe exim.		Monolithic like sendmail, but much easier to configure.
+Describe qmail.		Modular server with security its primary goal. Easier to configure than sendmail. Nonstandard with strange license that complicates distribution.
+In addition to an SMTP server, a fully functional Linux email system is likely to have what other three things?		Pull mail servers, fetchmail, and mail readers.
+What is a pull mail server?		POP or IMAP servers.
+What does fetchmail do?		It pulls email from POP or IMAP and reinjects it into a local SMTP mail queue.
+When is fetchmail useful?		If you have a variety of email clients, but your ISP only supports POP or IMAP.
+List some common mail readers.		Evolution, KMail, Thunderbird, mutt, mail
+What is the syntax for sending mail with 'mail'?		mail [-v] [-s subject] [-c cc-addr] [-b bcc-addr] to-addr
+What is the syntax for reading mail with 'mail'?		mail [-v] [-f [name] | -u user]
+What limitation is there to reading with 'mail'?		It can only read the local mail queue.
+What is the difference between cc and bcc addresses?		cc is a carbon copy, whereas bcc is a blind carbon copy. The recipient's address doesn't appear in the address list with bcc and it may be blocked by spam filters.
+mail -f		name of the mail spool file to use
+What command is a simple extension of 'mail'?		nail. It supports attachments with -a
+How do you end a message with 'mail'?		Ctrl-D
+When using 'mail' interactively, what do the 'd' and 'r' keys do?		delete and reply
+What command allows you to view and modify the mail queue?		mailq
+What is the sendmail equivalent to mailq?		sendmail -bp
+What are some ways to immediately clear the mail queue?		sendmail -q, postqueue in postfix, runq in exim
+What account are all email servers supposed to maintain?		postmaster
+Where is the email aliases file located?		/etc or /etc/mail
+What is the email alias syntax?		name: addr1[,addr2[,...]]
+What forms can the email alias addresses take?		local account, local file (leading /), piped command (leading |), file listing addresses (leading :include:), email address
+What is a typical setup for email aliases?		postmaster: root, root: <admin user>
+How do you recompile the /etc/aliases file?		newaliases
+How does a normal user redirect mail?		~/.forward contains the forwarded address
+What are disadvantages to using ~/.forward?		Cant be used for non-existent accounts or accounts without a home directory. User can overwrite the file.
+What are some security risks to running an email server?		software bugs may allow connecting to port 25 and sending SMTP commands. Misconfiguring to cause an open relay on the Internet.
+What are some ways to secure an email server?		Upgrade the server to the latest version. Run a battery of tests against your system using web sites such as abuse.net or spam.help.org
+What is SQL an abbreviation for?		Structured Query Language
+What is SQL used for?		Retrieving data from a database.
+What are examples of commonly used SQL implementations?		MySQL, PostgreSQL, SQLite
+Describe MySQL.		Released under GPL. Most major distributions include it in package databases. Requires multiple other packages.
+Describe PostgreSQL.		Evolved from Ingres software (post-Ingres SQL). BSD license. Requires multiple other packages.
+Describe SQLite.		It is a library that provides SQL interface to programs. Does not require a complete client-server package.
+What is the structure of a relational database?		Contains a collection of databases, which in turn each contain a collection of tables, where each row is referred to as a tuple and each column is refered to as an attribute or field.
+What is the domain of a database field?		A data type that places restrictions on a column value
+What is the "string" datatype called in an RDBMS?		VARCHAR
+How do you terminate a query in MySQL?		With a semicolon ';'
+What basic queries manipulate an entire database?		CREATE DATABASE test; SHOW DATABASES; USE test; DROP DATABASE test;
+What is the syntax for creating a database table?		CREATE TABLE <table-name> (<field-name> <data-type [(params)]>, ...);
+What is the difference between CHAR and VARCHAR in a database?		A CHAR must be precisely the size it was defined to be. A VARCHAR may have fewer characters than its defined size.
+What is the syntax for an ENUM in a database field?		ENUM('first', 'second', ...)
+How is a DECIMAL specified for a database field?		DECIMAL(digits-to-left-of-point, digits-to-right-of-point)
+How can you verify a database table after its been created?		DESCRIBE table;
+How do you store data with MySQL?		INSERT INTO table VALUES(...);
+How do you change data in a table with MySQL?		UPDATE table SET var=val WHERE condition
+What is a basic usage of selecting data in tables with MYSQL?		SELECT field(s) FROM table [WHERE conditions] [ORDER BY field];
+T/F You cannot compare VARCHARS or CHARS using '>' or '<' in a WHERE clause.		False. It compares lexicographically
+What is a uniquely identifying field called?		primary key
+How can you combine data from two tables without using a JOIN?		SELECT table1.field1, table2.field1, table2.field2 FROM table1, table2 WHERE table1.field1=table2.field1 AND conditions;
+How can you combine data from two tables using a JOIN?		SELECT table1.field1, table2.field1, table2.field2 FROM table1 JOIN table2 WHERE table1.field1=table2.field1 AND conditions;
+How do you use the SQL GROUP BY query?		It is used in conjunction with an aggregate operator such as SUM(). SELECT table.customer, SUM(orderprice) FROM table GROUP BY table.customer
+T/F You can delete a table by using the query: DELETE * FROM table;		False. It deletes the table's data, but not the table itself.
+How do you delete a table?		DROP TABLE table;
