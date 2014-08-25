@@ -1,0 +1,131 @@
+What do some network server programs use as an intermediary to getting connections?	super server
+What are some advantages to having a super server?	enhances security, reduces memory footprint, and easier to administer ports
+How do inetd and xinetd handle security?	inetd uses TCP Wrappers and xinetd uses built in security
+Where do you control servers that launch through inetd?	/etc/inetd.conf or /etc/inetd.d
+T/F Not all servers can be run under a super server.	True.
+What is the format for a line in inetd.conf?	[service name] [socket type] [protocol] [wait] [user] [server name] [parameters]
+What is the service name in inetd?	The name as it appears in /etc/services
+What are different socket types for inetd?	stream, dgram, raw
+What does wait/no wait mean for inetd?	If the process should time out or free after a dgram socket processes all its packets. nowait for other socket types
+What are typical users for running servers?	root, nobody
+How do you use TCP wrappers in inetd.conf?	/usr/sbin/tcpd and pass the server and arguments as a parameter
+What is the difference between restarting and reloading a server?	 Reloading never stops the server but reloads the config file. Restarting is more likely to have correct changes but may disrupt connections.
+Whats another way to reload the super server's config file other than using init or systemctl?	kill -HUP inetd
+T/F You should disable as many servers as possible in inetd.conf	True. This enhances security by eliminating unneeded buggy/misconfigured servers.
+What two things does tcpd do?	It checks if a client is authorized to access the server and calls the server program.
+What two files configure tcpd?	/etc/hosts.allow and /etc/hosts.deny
+If a host is listed in both tcpd hosts.allow and hosts.deny, which takes precedence?	hosts.allow
+What is the format of tcpd config files?	Each line is "daemon-list : client-list". Wildcards and keywords such as ALL or EXCEPT are allowed.
+T/F inetd can run servers without tcpd.	True. Some servers can parse the tcp config files themselves.
+Which distributions tend to use xinetd by default?	Fedora, Mandriva, Red Hat, SUSE
+T/F All configuration for xindetd goes in /etc/xinetd.conf	False. It is only a global file. Most configuration goes in /etc/xinetd.d
+How can you disable xinetd services without commenting them?	Set disable = yes in each disabled services definition or disabled = service-list in the defualts section of the global config file.
+What is the syntax for defining a service in xinetd.d?	Ex: service [name] { socket_type = stream \n protocol = tcp \n wait = no \n user = root \n server = /usr/sbin/in.ftpd \n server_args = -l }
+What is the format for server config parameters in xinetd.conf?	[network interface] [allowed addresses] [disallowed addresses] [access times]
+What does the bind option in xinetd do?	Also called interface, tells a computer to listen only on the Ethernet card associated with a particular address. Useful for routers and binding to loopback.
+How are allowed addresses specified in xinetd.conf?	Use the only_from option. Similar to hosts.allow
+How are disallowed addresses specified in xinetd.conf?	Use the no_access option. Similar to hosts.deny
+How are access times specified in xinetd.conf?	Use the access_times option. hour:min-hour:min format.
+T/F A user cannot continue using a system after the end of its access time has been reached.	False. The access_time option only affects when the server will respond to create new connections. Existing connections are unaffected.
+What command lets you set up packet-filtering firewall rules?	iptables
+What are some ways to identify running servers?	netstat, lsof, remote network scanners, local config files
+What is netstat used for?	It is the Swiss Army Knife of network status tools. Looks for network activity, open ports, routing tables, interface statistics, etc.
+netstat -ap	status of all ports and display the process name/PID
+netstat -lp	status of only listening ports and display the process name/PID
+What does it mean when there are asterisks in the local address, foreign address, and port fields of netstat?	That service is running but it has no currently active connections.
+What does lsof do?	Lists open files, who is accessing them, etc
+T/F Network connections are also files from the perspective of lsof.	True
+lsof -i	display network connections
+What is the output format of lsof -i?	Command Pid User FD Type Device_size Node_name
+What is two hostnames in the Name field of lsof -i an indication of?	An established outgoing connection.
+T/F You must be root to run lsof -i.	False. It will display the users own network connections. To see all system connections you must be root.
+What is the form of an address with lsof -i?	[46][protocol][@hostname|hostaddr][:service|port]
+How can you refine searching with lsof -i without using an address?	pipe it through grep
+Give two examples of network scanners.	nmap and nessus
+What is the difference between nmap and nessus?	Nessus is more sophisticated, can automate scans, and checks for known vulnerabilities. It also has a GUI and client/server model.
+What do you call a nefarious hacker?	cracker
+nmap -sT	scan TCP ports
+nmap -sU	scan UDP ports
+What is an important difference between nmap -sT and nmap -sU.	You must be root to scan UDP ports.
+What are some more advanced features of nmap?	stealth scans that are not likely to be noticed by most firewalls, ping scans to determine which hosts are active.
+T/F The ports that are visible from a cracker are likely to be the same as those visible by you.	False. It depends if a firewall is in place.
+What is BackTrack linux?	A stand-alone linux boot CD that provides a suite of network security tools and quick checks.
+What config files are important for finding unwanted servers?	startup scripts and super server config
+T/F You should be more aggressive with disabling servers in the super server config than in startup scripts.	True. You dont want to disable important subsystems that do much more than networking.
+What are getty processes and its variants?	Processes used to accept logins via older standards.
+What files may allow for login access via older standards?	/etc/inittab (getty) or /etc/init/tty# may allow RS-232 serial or modem access
+T/F Completely removing a server is preferable to disabling it.	True. Accidentally reactivating servers is a security risk.
+What are eight ways to enhance password security?	Use strong pws, frequently changing pws, shadow pws, keep them secret, secure remote login protocols, avoid shoulder surfing, unique pw per system, avoid social engineering.
+What is phishing?	When an attacker puts up a fake websites or emails pretending to be someone else.
+What is John the Ripper?	A password-cracking program.
+What command allows you to change linux account expiration features?	chage
+What command allows you to adjust some shadow password features?	usermod
+What are some reasons not to log directly into the root account?	no record of who typed the password appears in log files, root password can be intercepted, passerby can hijack the computer. su will leave a record.
+What advantage does sudo have over direct loggin or su to getting root access?	Allowed superuser tasks can be fine-tued. admins do not need the root password, only their own.
+What is sudo's config file?	/etc/sudoers
+What two types of entries does /etc/sudoers contain?	aliases and user specifications.
+What is the syntax of a sudo command alias?	Cmnd_Alias [ALIAS] = /sbin/command, /sbin/another
+What is the syntax of a sudo user specification?	%[group] ALL = [Cmnd_Aliases] or %wheel All=(ALL) ALL
+What is the best way to impose limits on number of login tries, cpu time, memory usage, etc?	Pluggable Authentication Modules (PAM) called pam_limits.
+What is the configuration file for pam_limits?	/etc/security/limits.conf
+What is the format of the limit lines in limits.conf?	domain type item value
+What is the domain in limits.conf?	username, groupname (@group), or asterisk for everybody
+What is the type field in limits.conf?	determines if the limit is hard or soft
+Give some examples of item fields in limits.conf.	core, data, fsize, nofile, rss, stack, cpu, nproc, maxlogins, priority (data, rss, and stack are memory measured in kilobytes)
+What is an alternative way to impose system limits besides pam_limits?	ulimit
+What is the syntax of ulimit?	ulimit [options [limit]]
+Give some examples of ulimit options.	-c (core), -f (file), -u (number processes), -t (process time), -v (virtual memory), -s (stack size), -m (rss), -d (data size), -l (locked memory)
+How do you set hard and soft limits with ulimit?	-H, -S
+ulimit -a	print current settings
+T/F ulimit is a good way to secure your system from user resource overconsumption.	False. It is only to protect from accidental system abuse. A user may bypass bash (and thus ulimit) with GUI logins and other ways.
+What does the /etc/nologin file do?	If the file is present, then only the root user may login in. The file's contents are shown to everyone else.
+How can you search for SUID or SGID programs and files?	find / -perm +6000 -type f
+What are three servers besides ssh that provide login access?	Telnet, Virtual Network Computing, and X
+What other features does ssh have besides login access?	Encryption of both passwords and data, file transfer, and tunneling other protocols
+Who first developed on OpenSSH before it became open source?	SSH Communications Security. Their new product is SSH Tectia.
+T/F It is preferred to start OpenSSH with the super server.	False. SSH performs CPU intensive tasks upon starting and may respond sluggish to connection requests in a super server.
+What is the name of the ssh server binary?	sshd
+Where is the ssh server config file?	/etc/ssh/sshd_config
+In sshd_config, what are all the commented out options?	They are default values. Uncommenting them will have no effect.
+In sshd_config, what is the Protocol option?	It can be either 1 or 2. 1 has been compromised but may be needed to connect older ssh clients.
+In sshd_config, why is setting "PermitRootLogin no" not always enough?	A compromise of a sudoer user is effectively a compromise of the root account.
+How do you enable X tunneling in sshd_config?	X11Forwarding yes.
+Why is X tunneling disabled by default in sshd_config?	It can slightly degrade security of the client X display depending on other options.
+What six keys are stored in /etc/ssh?	ssh_host_rsa_key, ssh_host_dsa_key, ssh_host_rsa1_key, and those three with a .pub extension
+How do you generate ssh keys if they do not exist?	ssh-keygen -q [rsa|rsa1|dsa] -f /etc/ssh/file -C '' -N ''
+What permissions should ssh key files have?	private keys should have 0600 or user read/write. public keys should be readable by all.
+Where does ssh record host keys for each individual user?	~/.ssh/known_hosts
+Where are the global ssh known host keys?	ssh_known_hosts is in either /etc or /etc/ssh
+How did the known hosts file change in OpenSSH version 4.0?	It went from being plain text to being hashed. Intruders cannot tell what computers youve been connecting to, but you cannot read it yourself.
+How can you control ssh access?	Some ssh servers will work with TCPwrappers, firewalls, and ssh honors /etc/nologin
+How do you use scp to transfer a file to a remote system without specifying a destination folder or file?	scp file user@remote:  (the trailing : is important!)
+How do you configure ssh to not require a password (or check it automatically)?	Copy the contents of the client's ~/.ssh/id_rsa.pub file to the end of the server's ~/.ssh/authorized_keys(2) file. Check the permissions on the authorized_keys file and client's home and ssh directories.
+T/F Some older ssh clients may require you to use "ssh -2" to use version 2.	True.
+What is ssh-agent?	It remembers your ssh password so you only need to type it once per session.
+How do you setup ssh-agent?	Generate an ssh key pair using a passphrase (omit the -N '' option). Launch ssh-agent /bin/bash. Then in this shell run ssh-add ~/.ssh/new_private_key.
+How do you insert ssh-agent into your normal login procedure?	Edit /etc/passwd 's login shell to ssh-agent /bin/bash or for GUI logins create another .xsession to call the original with ssh-agent.
+What is ssh's login script called?	sshrc in /etc or /etc/ssh
+How does ssh tunneling work?	The client runs two clients and the server runs two servers. tunneled client -> SSH client -> SSH server -> target service
+What must be in sshd_config in order to tunnel other protocols?	AllowTcpForwarding yes
+What parameters do you pass on the client to tunnel a protocol over SSH?	-N and -f tell ssh to not execute a remote command and to execute in the background. -L specifies the local port to listen : remote computer to connect : and remote port. The last parameter is the remote username and computer to which the tunnel goes.
+T/F ssh must run with root privileges to listen on a port below 1024.	True. They are privileged port numbers.
+What does GPG stand for?	Gnu Privacy Guard
+What does PGP stand for?	Pretty Good Privacy
+What is GPG used for?	Encrypting messages and files, and digital signatures
+How do you generate a gpg key pair?	gpg --gen-key
+Where is the gpg keyring?	~/.gnupg
+How do you export a gpg key?	gpg --export name > gpg.pub
+If you wish to email a gpg key, how should you export the key?	--armor produces ASCII output
+How do you send a gpg key to a keyserver?	gpg --keyserver [server] --send-keys [user@host]
+How do you add other's gpg keys to your keyring?	gpg --import filename
+T/F Distributing public keys is always secure.	False. Crackers can fake public keys pretending to be somebody else. Any sensitive messages encrypted with the fake public key are compromised.
+How do you show all gpg keys in the keyring?	gpg --list-keys
+How do you create a gpg public key revocation?	gpg --gen-revoke [keyname|user@host]
+How do you add a revocation to your keyring?	same way as other keys. gpg --import revocation.gpg
+How do you send a revocation to a keyserver?	same way as public keys. gpg --keyserver [server] --send-keys [keyname|user@host]
+How do you encrypt a message with gpg?	gpg --out encrypted-file [--recipient uid|email] [--armor] --encrypt original-file
+How do you decrypt a message with gpg?	gpg --out decrypted-file --decrypt encrypted-file
+T/F If you forget to use --armor with gpg, can you still send the encrypted message with email?	True. The binary can be added as an attachment.
+How do you sign a file with gpg?	"gpg --sign file" produces a file encrypted with your private key ending in .gpg, "gpg --clearsign file" produces an unencrypted file with encrypted signature ending in .asc
+If gpg is able to verify a signed message with any of the keys in your keyring, what does it print out?	Good Signature
+T/F gpg --verify will allow you to read a .asc file.	False. You must decrypt messages signed with --sign.
